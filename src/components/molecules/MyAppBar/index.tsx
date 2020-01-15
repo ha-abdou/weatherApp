@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
 import {drawerWidth} from "../../../constants";
-import {withNamespaces} from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
     appBar: {
@@ -23,8 +23,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function MyAppBar({ handleDrawerToggle, title, t }: any) {
+function MyAppBar({ handleDrawerToggle, title}: any) {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (<AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
@@ -42,4 +43,4 @@ function MyAppBar({ handleDrawerToggle, title, t }: any) {
     </AppBar>);
 }
 
-export default withNamespaces()(MyAppBar);
+export default MyAppBar;

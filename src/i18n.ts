@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import { reactI18nextModule } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import detector from "i18next-browser-languagedetector";
 
 import translationEN from './locales/en/translation.json';
@@ -12,9 +12,7 @@ const resources = {
 
 i18n
     .use(detector)
-    // todo
-    // @ts-ignore
-    .use(reactI18nextModule)
+    .use(initReactI18next)
     .init({
         resources,
         fallbackLng: "en",
@@ -23,5 +21,10 @@ i18n
             escapeValue: false
         }
     });
+
+export const languages = [
+    { name: "France", code: "fr" },
+    { name: "English", code: "en" },
+];
 
 export default i18n;

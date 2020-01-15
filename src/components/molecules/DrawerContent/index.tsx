@@ -1,28 +1,36 @@
 import * as React from "react";
-import i18n from "../../../i18n";
-import {withNamespaces} from "react-i18next";
 import Divider from "@material-ui/core/Divider";
 import {makeStyles} from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
+import LanguagesSelector from "../LanguagesSelector";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
 }));
 
-const DrawerContent = ({ t }: any) => {
+const DrawerContent = () => {
     const classes = useStyles();
-    const changeLanguage = (lng: string) => {
-        localStorage.setItem("i18nextLng", lng);
-        i18n.changeLanguage(lng);
-    };
 
     return (<div>
         <div className={classes.toolbar} />
         <Divider />
-        <h2>Drawer content</h2>
-        <button onClick={() => changeLanguage('fr')}>fr</button>
-        <button onClick={() => changeLanguage('en')}>en</button>
-        <p>{t("hi")}</p>
+        <List>
+            <ListItem>
+                <LanguagesSelector />
+                <Divider />
+            </ListItem>
+            <ListItem>
+                <Switch
+                    defaultChecked
+                    value="checkedF"
+                    color="default"
+                    inputProps={{ 'aria-label': 'checkbox with default color' }}
+                />
+            </ListItem>
+        </List>
     </div>);
 };
 
-export default withNamespaces()(DrawerContent);
+export default DrawerContent;
