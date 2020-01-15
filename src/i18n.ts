@@ -17,7 +17,7 @@ i18n
     .use(reactI18nextModule)
     .init({
         resources,
-        lng: "en",
+        fallbackLng: "en",
         keySeparator: false,
         interpolation: {
             escapeValue: false
