@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const MyDrawer = ({handleDrawerToggle, mobileOpen}: any) => {
+const MyDrawer = ({handleDrawerToggle, mobileOpen, theme, setTheme}: any) => {
     const classes = useStyles();
 
     return (<nav className={classes.drawer} aria-label="mailbox folders">
@@ -34,7 +34,7 @@ const MyDrawer = ({handleDrawerToggle, mobileOpen}: any) => {
                     keepMounted: true,
                 }}
             >
-                <DrawerContent />
+                <DrawerContent theme={theme} setTheme={setTheme}/>
             </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -45,7 +45,7 @@ const MyDrawer = ({handleDrawerToggle, mobileOpen}: any) => {
                 variant="permanent"
                 open
             >
-                <DrawerContent />
+                <DrawerContent theme={theme} setTheme={setTheme}/>
             </Drawer>
         </Hidden>
     </nav>);

@@ -1,16 +1,16 @@
 import * as React from "react";
 import Divider from "@material-ui/core/Divider";
 import {makeStyles} from "@material-ui/core/styles";
-import Switch from "@material-ui/core/Switch";
 import LanguagesSelector from "../LanguagesSelector";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ThemeSelector from "../ThemeSelector";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
 }));
 
-const DrawerContent = () => {
+const DrawerContent = ({theme, setTheme}: any) => {
     const classes = useStyles();
 
     return (<div>
@@ -19,16 +19,12 @@ const DrawerContent = () => {
         <List>
             <ListItem>
                 <LanguagesSelector />
-                <Divider />
             </ListItem>
+            <Divider />
             <ListItem>
-                <Switch
-                    defaultChecked
-                    value="checkedF"
-                    color="default"
-                    inputProps={{ 'aria-label': 'checkbox with default color' }}
-                />
+                <ThemeSelector theme={theme} onChange={setTheme}/>
             </ListItem>
+            <Divider />
         </List>
     </div>);
 };

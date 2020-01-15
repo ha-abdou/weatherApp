@@ -15,7 +15,7 @@ const LanguagesSelector = () => {
     };
 
     return (<FormControl component="fieldset" >
-        <FormLabel component="legend">{t("language")} :</FormLabel>
+        <FormLabel component="legend">{t("languages")} :</FormLabel>
         <RadioGroup aria-label="gender" name="gender1" value={i18n.language} onChange={changeLanguage}>
             {languages.map(({name, code}) =>
                 <FormControlLabel key={code} value={code} control={<Radio />} label={name} />)}
