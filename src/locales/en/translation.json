@@ -2,5 +2,9 @@
   "hi": "Hi",
   "openDrawer": "Open Drawer",
   "languages": "Languages",
-  "darkTheme": "Dark theme"
+  "darkTheme": "Dark theme",
+  "tempUnit": "Temperature unit",
+  "speedUnit": "Speed unit",
+  "MPH": "Mile per hour",
+  "KPH": "Kilometer per hour"
 }

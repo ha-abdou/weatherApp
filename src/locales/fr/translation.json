@@ -2,5 +2,9 @@
   "hi": "Salut",
   "openDrawer": "Ouvrir le menu",
   "languages": "Langues",
-  "darkTheme": "Thème sombre"
+  "darkTheme": "Thème sombre",
+  "tempUnit": "Unité de température",
+  "speedUnit": "Unité de vitesse",
+  "MPH": "Mile par heure",
+  "KPH": "Kilomètre par heure"
 }

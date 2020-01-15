@@ -2,7 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import MyDrawer from "./components/molecules/MyDrawer";
-import MyAppBar from "./components/molecules/MyAppBar";
+import MyAppBar from "./components/atoms/MyAppBar";
 import { ThemeProvider } from '@material-ui/styles';
 import {lightTheme, darkTheme} from "./themes";
 import Cookies from "js-cookie";
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function App() {
+const App = () => {
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [theme, setTheme] = React.useState(Cookies.get("theme") || "light");
