@@ -1,12 +1,12 @@
 import Cookies from "js-cookie";
 
 const getDefaultSettings = () => ({
-    language: Cookies.get("language") || "en",
-    tempUnit: Cookies.get("tempUnit") || "c",
-    speedUnit: Cookies.get("speedUnit") || "kmph",
-    theme: Cookies.get("theme") || "light",
     drawer: false,
+    language: Cookies.get("language") || "en",
     setSetting: (key: string, value: string | number | boolean) => { /**/ },
+    speedUnit: Cookies.get("speedUnit") || "kmph",
+    tempUnit: Cookies.get("tempUnit") || "c",
+    theme: Cookies.get("theme") || "light",
 });
 
 export default getDefaultSettings;

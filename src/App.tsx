@@ -1,26 +1,23 @@
-import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
-import MyDrawer from "./components/molecules/MyDrawer";
-import MyAppBar from "./components/atoms/MyAppBar";
-import { ThemeProvider } from '@material-ui/styles';
-import {lightTheme, darkTheme} from "./themes";
+import { Button, CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import Cookies from "js-cookie";
-import SettingsContext from "./settingsContext";
-import getDefaultSettings from "./util/getDefaultSetting";
+import React from 'react';
 import appReducer, {SET_SETTINGS, TOGGLE_DRAWER} from "./App.reducer";
+import MyAppBar from "./components/atoms/MyAppBar";
+import MyDrawer from "./components/molecules/MyDrawer";
 import i18n from "./i18n";
-import { Button } from '@material-ui/core';
+import SettingsContext from "./settingsContext";
+import {darkTheme, lightTheme} from "./themes";
+import getDefaultSettings from "./util/getDefaultSetting";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    toolbar: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    root: {
+        display: 'flex',
+    },
+    toolbar: theme.mixins.toolbar,
 }));
 const defaultSettings = getDefaultSettings();
 
@@ -46,7 +43,7 @@ const App = () => {
         <ThemeProvider theme={state.theme === "light" ? lightTheme : darkTheme }>
             <div className={classes.root}>
                 <CssBaseline />
-                <MyAppBar title="Title" handleDrawerToggle={handleDrawerToggle} />
+                <MyAppBar title="Title" toggleDrawer={handleDrawerToggle} />
                 <MyDrawer isOpen={state.drawer} toggle={handleDrawerToggle} />
                 <main className={classes.content}>
                     <div className={classes.toolbar} />

@@ -9,5 +9,11 @@
         "jsx-no-lambda": false,
         "prefer-array-literal": false
     },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "src/serviceWorker.ts",
+            "src/setupTests.ts"
+        ]
+    }
 }

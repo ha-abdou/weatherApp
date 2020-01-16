@@ -1,18 +1,14 @@
+import {AppBar, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import {Menu} from '@material-ui/icons';
 import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from "@material-ui/core/AppBar";
-import {drawerWidth} from "../../../constants";
 import { useTranslation } from 'react-i18next';
+import {drawerWidth} from "../../../constants";
 
 const useStyles = makeStyles(theme => ({
     appBar: {
         [theme.breakpoints.up('md')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
             marginLeft: drawerWidth,
+            width: `calc(100% - ${drawerWidth}px)`,
         },
     },
     menuButton: {
@@ -23,7 +19,12 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function MyAppBar({ handleDrawerToggle, title}: any) {
+interface IAppBarProps {
+    title: string;
+    toggleDrawer: () => void;
+}
+
+const MyAppBar = ({ toggleDrawer, title}: IAppBarProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -33,14 +34,16 @@ function MyAppBar({ handleDrawerToggle, title}: any) {
             color="inherit"
             aria-label={t("openDrawer")}
             edge="start"
-            onClick={handleDrawerToggle}
+            onClick={toggleDrawer}
             className={classes.menuButton}
         >
-            <MenuIcon />
+            <Menu />
         </IconButton>
-        <Typography variant="h6" noWrap>{title}</Typography>
+        <Typography variant="h6" noWrap={true}>{title}</Typography>
         </Toolbar>
     </AppBar>);
-}
+};
 
-export default MyAppBar;
+const propsAreEqual = (p: IAppBarProps, n: IAppBarProps) => p.title === n.title;
+
+export default React.memo(MyAppBar, propsAreEqual);
