@@ -14,6 +14,9 @@ i18n
     .use(detector)
     .use(initReactI18next)
     .init({
+        detection: {
+            lookupCookie: "language",
+        },
         resources,
         fallbackLng: "en",
         keySeparator: false,

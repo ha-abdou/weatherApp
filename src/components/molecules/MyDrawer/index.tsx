@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const MyDrawer = ({handleDrawerToggle, mobileOpen, theme, setTheme}: any) => {
+const MyDrawer = ({handleDrawerToggle, mobileOpen}: any) => {
     const classes = useStyles();
 
     return (<nav className={classes.drawer} aria-label="mailbox folders">
@@ -34,7 +34,7 @@ const MyDrawer = ({handleDrawerToggle, mobileOpen, theme, setTheme}: any) => {
                     keepMounted: true,
                 }}
             >
-                <DrawerContent theme={theme} setTheme={setTheme}/>
+                <DrawerContent />
             </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -45,10 +45,12 @@ const MyDrawer = ({handleDrawerToggle, mobileOpen, theme, setTheme}: any) => {
                 variant="permanent"
                 open
             >
-                <DrawerContent theme={theme} setTheme={setTheme}/>
+                <DrawerContent />
             </Drawer>
         </Hidden>
     </nav>);
 };
+
+// todo React.memo
 
 export default MyDrawer;

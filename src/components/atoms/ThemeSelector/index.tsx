@@ -4,7 +4,7 @@ import {FormControlLabel} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 
 interface IThemeSelectorProps {
-    theme: "dark" | "light";
+    theme: string;
     onChange: (newTheme: string) => void;
 }
 
@@ -21,4 +21,6 @@ const ThemeSelector = ({theme, onChange}: IThemeSelectorProps) => {
     />);
 };
 
-export default React.memo(ThemeSelector);
+const propsAreEqual = (p: IThemeSelectorProps, n: IThemeSelectorProps) => p.theme === n.theme;
+
+export default React.memo(ThemeSelector, propsAreEqual);

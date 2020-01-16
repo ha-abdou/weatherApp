@@ -6,12 +6,12 @@ import Radio from "@material-ui/core/Radio";
 import FormLabel from "@material-ui/core/FormLabel";
 import {useTranslation} from "react-i18next";
 
-interface ITempSelector {
-    value: "c" | "f";
+interface ITempSelectorProps {
+    value: string;
     onChange: (celsius: string) => void;
 }
 
-const TempSelector = ({value, onChange}: ITempSelector) => {
+const TempSelector = ({value, onChange}: ITempSelectorProps) => {
     const { t } = useTranslation();
 
     return (<FormControl component="fieldset" >
@@ -25,4 +25,6 @@ const TempSelector = ({value, onChange}: ITempSelector) => {
     </FormControl>);
 };
 
-export default TempSelector;
+const propsAreEqual = (p: ITempSelectorProps, n: ITempSelectorProps) => p.value === n.value;
+
+export default React.memo(TempSelector, propsAreEqual);
