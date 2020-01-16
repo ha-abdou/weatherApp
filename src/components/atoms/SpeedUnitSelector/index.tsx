@@ -1,9 +1,5 @@
-import {FormControl} from "@material-ui/core";
+import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@material-ui/core";
 import * as React from "react";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import FormLabel from "@material-ui/core/FormLabel";
 import {useTranslation} from "react-i18next";
 
 interface ISpeedUnitSelectorProps {

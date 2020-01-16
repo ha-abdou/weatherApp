@@ -1,16 +1,13 @@
-import Hidden from "@material-ui/core/Hidden";
-import Drawer from "@material-ui/core/Drawer";
-import DrawerContent from "../DrawerContent";
+import { Drawer, Hidden, makeStyles} from "@material-ui/core";
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import {drawerWidth} from "../../../constants";
+import DrawerContent from "../DrawerContent";
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     drawer: {
         [theme.breakpoints.up('md')]: {
-            width: drawerWidth,
             flexShrink: 0,
+            width: drawerWidth,
         },
     },
     drawerPaper: {
@@ -18,39 +15,34 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const MyDrawer = ({handleDrawerToggle, mobileOpen}: any) => {
+interface IMyDrawerProps {
+    toggle: () => void;
+    isOpen: boolean;
+}
+
+const MyDrawer = ({toggle, isOpen}: IMyDrawerProps) => {
     const classes = useStyles();
 
     return (<nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden lgUp implementation="css">
-            <Drawer
-                variant="temporary"
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-                ModalProps={{
-                    keepMounted: true,
-                }}
+        <Hidden lgUp={true} implementation="css">
+            <Drawer variant="temporary"
+                    open={isOpen}
+                    onClose={toggle}
+                    classes={{ paper: classes.drawerPaper }}
+                    ModalProps={{ keepMounted: true }}
             >
                 <DrawerContent />
             </Drawer>
         </Hidden>
-        <Hidden smDown implementation="css">
-            <Drawer
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-                variant="permanent"
-                open
+        <Hidden smDown={true} implementation="css">
+            <Drawer classes={{ paper: classes.drawerPaper }}
+                    variant="permanent"
+                    open={true}
             >
                 <DrawerContent />
             </Drawer>
         </Hidden>
     </nav>);
 };
-
-// todo React.memo
 
 export default MyDrawer;

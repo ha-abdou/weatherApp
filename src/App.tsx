@@ -10,6 +10,7 @@ import SettingsContext from "./settingsContext";
 import getDefaultSettings from "./util/getDefaultSetting";
 import appReducer, {SET_SETTINGS, TOGGLE_DRAWER} from "./App.reducer";
 import i18n from "./i18n";
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,10 +36,8 @@ const App = () => {
             i18n.changeLanguage(value as string);
         }
         dispatch({
-            type: SET_SETTINGS,
-            payload: {
-                key, value
-            }
+            payload: { key, value },
+            type: SET_SETTINGS
         });
         Cookies.set(key, value.toString()); // todo review value type
     };
@@ -48,12 +47,10 @@ const App = () => {
             <div className={classes.root}>
                 <CssBaseline />
                 <MyAppBar title="Title" handleDrawerToggle={handleDrawerToggle} />
-                <MyDrawer mobileOpen={state.drawer}
-                          handleDrawerToggle={handleDrawerToggle}
-                />
+                <MyDrawer isOpen={state.drawer} toggle={handleDrawerToggle} />
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    <h2>Content</h2>
+                    <Button onClick={() => defaultSettings.setSetting("tempUnit", state.tempUnit)}>d</Button>
                 </main>
             </div>
         </ThemeProvider>

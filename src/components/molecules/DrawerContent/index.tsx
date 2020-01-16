@@ -1,14 +1,11 @@
+import {Divider, List, ListItem, makeStyles} from "@material-ui/core";
 import * as React from "react";
-import Divider from "@material-ui/core/Divider";
-import {makeStyles} from "@material-ui/core/styles";
-import LanguagesSelector from "../../atoms/LanguagesSelector";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ThemeSelector from "../../atoms/ThemeSelector";
-import TempSelector from "../../atoms/TempSelector";
-import SpeedUnitSelector from "../../atoms/SpeedUnitSelector";
 import {languages} from "../../../i18n";
 import SettingsContext from "../../../settingsContext";
+import LanguagesSelector from "../../atoms/LanguagesSelector";
+import SpeedUnitSelector from "../../atoms/SpeedUnitSelector";
+import TempSelector from "../../atoms/TempSelector";
+import ThemeSelector from "../../atoms/ThemeSelector";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,

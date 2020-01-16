@@ -1,6 +1,5 @@
-import Switch from "@material-ui/core/Switch";
+import {FormControlLabel, Switch} from "@material-ui/core";
 import * as React from "react";
-import {FormControlLabel} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 
 interface IThemeSelectorProps {
