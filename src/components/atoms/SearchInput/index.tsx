@@ -25,22 +25,22 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface ISearchInputProps {
-    label?: string;
+    placeholder?: string;
     value: string;
     onChange: (value: string) => void;
     onSearch: (value: string) => void;
     style?: CSSProperties;
 }
 
-const SearchInput = ({ label, onChange, onSearch, value, style}: ISearchInputProps) => {
+const SearchInput = ({ placeholder, onChange, onSearch, value, style}: ISearchInputProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (<Paper component="form" className={classes.root} style={style}>
         <InputBase
             className={classes.input}
-            placeholder={label}
-            inputProps={{ 'aria-label': label }}
+            placeholder={placeholder}
+            inputProps={{ 'aria-label': placeholder }}
             value={value}
             onChange={(event) => onChange(event.target.value)}
         />
