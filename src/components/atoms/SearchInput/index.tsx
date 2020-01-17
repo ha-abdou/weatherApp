@@ -49,8 +49,8 @@ const SearchInput = ({ loading, placeholder, onChange, onSearch, value, style}: 
     const keyPress = (e: KeyboardEvent) => {
         if(e.key === "Enter"){
             onSearch(value);
+            e.preventDefault();
         }
-        e.preventDefault();
     };
     return (<Paper component="form" className={classes.root} style={style}>
         <InputBase

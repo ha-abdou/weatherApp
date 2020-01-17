@@ -8,5 +8,6 @@
   "MPH": "Mile par heure",
   "KPH": "Kilomètre par heure",
   "search": "Chercher",
-  "clear": "Nettoyer"
+  "clear": "Nettoyer",
+  "searchCity": "Rechercher une ville"
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import {TOKEN} from "../constants";
 
-interface IAPICityWeatherResponse {
+export interface IAPICityWeatherResponse {
     humidity: number,
     id: number,
     label: string,
@@ -17,7 +17,7 @@ interface IAPIErrorResponse {
 }
 
 const API = {
-    getCityWeatherByName: async (name: string): Promise<IAPICityWeatherResponse | IAPIErrorResponse> => {
+    getCityWeatherByName: async (name: string): Promise<IAPICityWeatherResponse> => {
         try {
             const res = (await axios.get("https://api.openweathermap.org/data/2.5/weather", {
                 params: {
@@ -37,15 +37,15 @@ const API = {
             })
         } catch (e) {
             if (e.response && e.response.data && e.response.data.message === "city not found") {
-                return ({ msg: e.response.data.message });
+                // can't use new Promise
+                // eslint-disable-next-line no-throw-literal
+                throw ({ msg: e.response.data.message });
             }
-            return ({ msg: "error happen" });
+            // can't use new Promise
+            // eslint-disable-next-line no-throw-literal
+            throw ({ msg: "error happen" });
         }
     }
 };
-/*
-    API.getCityWeatherByName("d")
-        .then((res) => console.log(res))
-        .catch((err) => console.error("------>", err));
- */
+
 export default API;

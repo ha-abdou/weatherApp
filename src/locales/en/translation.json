@@ -8,5 +8,6 @@
   "MPH": "Mile per hour",
   "KPH": "Kilometer per hour",
   "search": "Search",
-  "clear": "Clear"
+  "clear": "Clear",
+  "searchCity": "Search for a city"
 }

@@ -1,13 +1,10 @@
 import React from "react";
 import CityWeatherSummary from "../../atoms/CityWeatherSummary";
-import SearchInput from "../../atoms/SearchInput";
+import SearchCity from "../../molecules/SearchCity";
 const WeatherCaster = () => {
 
     return (<div>
-        <SearchInput style={{ maxWidth: "400px", margin: "auto", marginBottom: "10px"}} loading={false}
-                     value="s" onChange={() => {/**/}} onSearch={() => {/**/}} placeholder="fdsd" />
-        <SearchInput style={{ maxWidth: "400px", margin: "auto", marginBottom: "10px"}} loading={true}
-                     value="s" onChange={() => {/**/}} onSearch={() => {/**/}} placeholder="fdsd" />
+        <SearchCity onFound={(res) => console.log(res)} />
         <CityWeatherSummary  humidity={0}
                              temp={188}
                              label={"Paris, FR"}
