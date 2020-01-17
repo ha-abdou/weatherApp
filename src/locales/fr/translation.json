@@ -6,5 +6,7 @@
   "tempUnit": "Unité de température",
   "speedUnit": "Unité de vitesse",
   "MPH": "Mile par heure",
-  "KPH": "Kilomètre par heure"
+  "KPH": "Kilomètre par heure",
+  "search": "Chercher",
+  "clear": "Nettoyer"
 }

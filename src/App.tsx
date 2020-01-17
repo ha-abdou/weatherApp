@@ -1,9 +1,10 @@
-import { Button, CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
+import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import Cookies from "js-cookie";
 import React from 'react';
 import appReducer, {SET_SETTINGS, TOGGLE_DRAWER} from "./App.reducer";
 import MyAppBar from "./components/atoms/MyAppBar";
 import MyDrawer from "./components/molecules/MyDrawer";
+import WeatherCaster from "./components/organisms/weatherCaster";
 import i18n from "./i18n";
 import SettingsContext from "./settingsContext";
 import {darkTheme, lightTheme} from "./themes";
@@ -47,7 +48,7 @@ const App = () => {
                 <MyDrawer isOpen={state.drawer} toggle={handleDrawerToggle} />
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    <Button onClick={() => defaultSettings.setSetting("tempUnit", state.tempUnit)}>d</Button>
+                    <WeatherCaster />
                 </main>
             </div>
         </ThemeProvider>
