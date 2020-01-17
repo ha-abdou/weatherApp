@@ -1,4 +1,13 @@
-import {createStyles, Divider, IconButton, InputBase, makeStyles, Paper, Theme} from "@material-ui/core";
+import {
+    CircularProgress,
+    createStyles,
+    Divider,
+    IconButton,
+    InputBase,
+    makeStyles,
+    Paper,
+    Theme
+} from "@material-ui/core";
 import {Clear as ClearIcon, Search as SearchIcon} from "@material-ui/icons";
 import React, {CSSProperties} from "react";
 import {useTranslation} from "react-i18next";
@@ -30,12 +39,19 @@ interface ISearchInputProps {
     onChange: (value: string) => void;
     onSearch: (value: string) => void;
     style?: CSSProperties;
+    loading?: boolean;
 }
 
-const SearchInput = ({ placeholder, onChange, onSearch, value, style}: ISearchInputProps) => {
+const SearchInput = ({ loading, placeholder, onChange, onSearch, value, style}: ISearchInputProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
+    const keyPress = (e: KeyboardEvent) => {
+        if(e.key === "Enter"){
+            onSearch(value);
+        }
+        e.preventDefault();
+    };
     return (<Paper component="form" className={classes.root} style={style}>
         <InputBase
             className={classes.input}
@@ -43,6 +59,8 @@ const SearchInput = ({ placeholder, onChange, onSearch, value, style}: ISearchIn
             inputProps={{ 'aria-label': placeholder }}
             value={value}
             onChange={(event) => onChange(event.target.value)}
+            // @ts-ignore todo
+            onKeyPress={keyPress}
         />
         <IconButton color="secondary"
                     className={classes.iconButton}
@@ -56,7 +74,7 @@ const SearchInput = ({ placeholder, onChange, onSearch, value, style}: ISearchIn
                     aria-label={t("search")}
                     onClick={onSearch.bind(null, value)}
         >
-            <SearchIcon />
+            { loading ? <CircularProgress size={24} thickness={5} /> : <SearchIcon /> }
         </IconButton>
     </Paper>);
 };

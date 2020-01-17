@@ -4,9 +4,10 @@ import SearchInput from "../../atoms/SearchInput";
 const WeatherCaster = () => {
 
     return (<div>
-        <SearchInput style={{ maxWidth: "400px", margin: "auto", marginBottom: "10px"}}
+        <SearchInput style={{ maxWidth: "400px", margin: "auto", marginBottom: "10px"}} loading={false}
                      value="s" onChange={() => {/**/}} onSearch={() => {/**/}} placeholder="fdsd" />
-
+        <SearchInput style={{ maxWidth: "400px", margin: "auto", marginBottom: "10px"}} loading={true}
+                     value="s" onChange={() => {/**/}} onSearch={() => {/**/}} placeholder="fdsd" />
         <CityWeatherSummary  humidity={0}
                              temp={188}
                              label={"Paris, FR"}
