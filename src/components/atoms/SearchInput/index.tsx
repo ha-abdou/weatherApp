@@ -79,4 +79,10 @@ const SearchInput = ({ loading, placeholder, onChange, onSearch, value, style}: 
     </Paper>);
 };
 
-export default SearchInput
+const propsAreEqual = (p: ISearchInputProps, n: ISearchInputProps) => (
+    p.placeholder === n.placeholder &&
+    p.value === n.value &&
+    p.loading === n.loading
+);
+
+export default React.memo(SearchInput, propsAreEqual);

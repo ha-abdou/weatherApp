@@ -63,7 +63,7 @@ const CityWeatherSummary = ({humidity, label, onClick, temp, temp_max, temp_min,
         </CardContent>
         <Divider className={classes.divider} />
         <div>
-            <span>{temp_max}°↑ {temp_min}°↓</span>
+            <span style={{ float: "left" }}>{temp_max}°↑ {temp_min}°↓</span>
             <span style={{ float: "right"}}>{humidity}%</span>
         </div>
     </Card>);
