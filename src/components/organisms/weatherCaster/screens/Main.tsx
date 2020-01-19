@@ -1,29 +1,26 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router-dom";
 import useFavoriteCities from "../../../../hooks/useFavoriteCities";
-import CityWeatherSummary from "../../../atoms/CityWeatherSummary";
+import LiveWeatherSummary from "../../../molecules/LiveWeatherSummary";
 import SearchCity from "../../../molecules/SearchCity";
 
+
 const WeatherCasterMainScreen = () => {
-    const { cities, addCity, tempConverter } = useFavoriteCities();
-    const [redirectTo, setRedirect] = useState(0);
-    const redirect = (cityID: number) => () => {
-        setRedirect(cityID)
+    const { cities, addCity } = useFavoriteCities();
+    const [redirectTo, setRedirect] = useState("");
+
+    const redirect = (label: string) => () => {
+        setRedirect(label.replace(" ", "+"))
     };
 
     return (<div style={{ maxWidth: 750, margin: "auto", textAlign: "center" }}>
-        { redirectTo !== 0 ? <Redirect to={`/${redirectTo}`} /> : null }
-        <SearchCity onFound={addCity} />
+        { redirectTo !== "" ? <Redirect to={`/${redirectTo}`} /> : null }
+        <SearchCity onFound={(city) => addCity(city.label)} />
         {cities.map((city) =>
-            <CityWeatherSummary  humidity={city.humidity}
-                                 key={city.id}
-                                 temp={tempConverter(city.temp)}
-                                 label={city.label}
-                                 temp_max={tempConverter(city.temp_max)}
-                                 temp_min={tempConverter(city.temp_min)}
-                                 weatherIcon={city.weatherIcon}
-                                 onClick={redirect(city.id)}
-                                 updating={city.loading}
+            <LiveWeatherSummary
+                key={city}
+                label={city}
+                onClick={redirect(city)}
             />)}
     </div>);
 };

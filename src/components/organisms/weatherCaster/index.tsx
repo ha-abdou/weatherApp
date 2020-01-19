@@ -1,18 +1,21 @@
 import React from "react";
+import {RouteComponentProps} from "react-router";
 import {
     BrowserRouter as Router,
     Route,
     Switch
 } from "react-router-dom";
+import CityWeather from "./screens/CityWeather";
 import WeatherCasterMainScreen from "./screens/Main";
-import WeatherCasterOneCityScreen from "./screens/OneCity";
 
 const WeatherCaster = () => {
+
     return (<Router>
         <Switch>
-            <Route path="/:cityID" >
-                <WeatherCasterOneCityScreen />
-            </Route>
+            <Route path="/:cityLabel"
+                   component={({match}: RouteComponentProps<{ cityLabel: string }>) =>
+                       <CityWeather label={match.params.cityLabel}/>}
+            />
             <Route path="/">
                 <WeatherCasterMainScreen />
             </Route>
@@ -20,4 +23,4 @@ const WeatherCaster = () => {
     </Router>);
 };
 
-export default WeatherCaster;
+export default React.memo(WeatherCaster, () => true);
