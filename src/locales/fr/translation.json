@@ -18,5 +18,14 @@
   "wind": "Vent",
   "networkError": "Erreur  de connection",
   "city not found": "Ville non trouvée",
-  "errorHappen": "Une erreur s'est produite"
+  "errorHappen": "Une erreur s'est produite",
+  "clear sky" : "Ciel clair",
+  "few clouds" : "Quelques nuages",
+  "scattered clouds" : "Nuages dispersés",
+  "broken clouds" : "Nuages brisés",
+  "shower rain" : "Douche de pluie",
+  "rain" : "Pluie",
+  "thunderstorm" : "Orage",
+  "snow" : "Neige",
+  "mist" : "Brouillard"
 }

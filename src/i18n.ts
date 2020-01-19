@@ -19,7 +19,7 @@ i18n
     .use(detector)
     .use(initReactI18next)
     .init({
-        debug: true,
+        debug: false,
         detection: {
             lookupCookie: "language",
         },

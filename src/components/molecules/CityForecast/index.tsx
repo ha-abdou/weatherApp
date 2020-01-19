@@ -3,6 +3,7 @@ import React, {useMemo} from "react";
 import {useTranslation} from "react-i18next";
 import {IAPICityForecastResponse} from "../../../api";
 import useSettings from "../../../hooks/useSettings";
+import {PUBLIC_URL} from "../../../constants";
 
 interface ICityForecastProps {
     forecast: IAPICityForecastResponse["days"][0]["data"];
@@ -36,7 +37,7 @@ const CityForecast = ({forecast}: ICityForecastProps) => {
                     <TableCell align="right">
                         <img alt={row.iconALT}
                              className={classes.weatherIcon}
-                             src={row.weatherIcon}
+                             src={PUBLIC_URL + row.weatherIcon}
                         />
                     </TableCell>
                     <TableCell align="right">{row.humidity}%</TableCell>

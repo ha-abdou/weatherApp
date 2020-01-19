@@ -1,8 +1,0 @@
-{
-  "build": {
-    "env": {
-      "API_TOKEN": "@api_token",
-      "DATA_LIFE_TIME": "@data_life_time"
-    }
-  }
-}

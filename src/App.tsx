@@ -2,7 +2,7 @@ import {CssBaseline, makeStyles, ThemeProvider} from '@material-ui/core';
 import Cookies from "js-cookie";
 import {SnackbarProvider} from "notistack";
 import React from 'react';
-import {BrowserRouter as Router} from "react-router-dom";
+import {Router} from "react-router-dom";
 import appReducer, {SET_SETTINGS, TOGGLE_DRAWER} from "./App.reducer";
 import MyAppBar from "./components/atoms/MyAppBar";
 import MyDrawer from "./components/molecules/MyDrawer";
@@ -43,7 +43,6 @@ const App = () => {
         Cookies.set(key, value.toString());
     };
 
-    // @ts-ignore
     return (<Router history={history}>
         <SettingsContext.Provider value={state}>
             <ThemeProvider theme={state.theme === "light" ? lightTheme : darkTheme }>

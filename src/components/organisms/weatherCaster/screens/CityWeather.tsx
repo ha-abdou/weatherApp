@@ -1,7 +1,7 @@
 import {Button, makeStyles} from "@material-ui/core";
 import {ArrowBackIos as ArrowBackIosIcon, DeleteForever as DeleteForeverIcon} from '@material-ui/icons';
 import React, {useMemo, useState} from "react";
-import {Redirect} from "react-router-dom";
+import {PUBLIC_URL} from "../../../../constants";
 import history from "../../../../history";
 import useFavoriteCities, {ICityWeatherSummary} from "../../../../hooks/useFavoriteCities";
 import LiveCityForecast from "../../../molecules/LiveCityForecast";
@@ -20,26 +20,26 @@ const useStyles = makeStyles({
 const CityWeather = ({ label }: ICityWeatherProps) => {
     const { removeCity } = useFavoriteCities();
     const [realLabel, setRealLabel] = useState<string|undefined>();
-    const [redirectTo, setRedirect] = useState("");
     const classes = useStyles();
 
     return (useMemo(() => {
         const remove = () => {
             if (realLabel) {
                 removeCity(realLabel);
-                setRedirect("/");
+                redirectSilent();
             }
         };
         const onFound = (weather: ICityWeatherSummary) => {
             setRealLabel(weather.label);
         };
         const redirect = () => {
-            history.push("/");
-            setRedirect("/");
+            history.push(`${PUBLIC_URL}/`);
+        };
+        const redirectSilent = () => {
+            history.replace(`${PUBLIC_URL}/`);
         };
 
         return (<div className={classes.root}>
-            { redirectTo !== "" ? <Redirect to={redirectTo} /> : null }
             <div>
                 <Button variant="contained" className={classes.floatLeft} onClick={redirect}>
                     <ArrowBackIosIcon />
@@ -49,12 +49,12 @@ const CityWeather = ({ label }: ICityWeatherProps) => {
                 </Button>
             </div>
             <LiveWeatherSummary label={label.replace(/\+/g, " ")}
-                                onNotFound={() => setRedirect("/")}
+                                onNotFound={redirectSilent}
                                 onFound={onFound}
             />
             {realLabel ? <LiveCityForecast label={realLabel} /> : null }
         </div>);
-    }, [classes.root, classes.floatLeft, classes.floatRight, redirectTo, label, realLabel, removeCity]));
+    }, [classes.root, classes.floatLeft, classes.floatRight, label, realLabel, removeCity]));
 };
 
 export default CityWeather;

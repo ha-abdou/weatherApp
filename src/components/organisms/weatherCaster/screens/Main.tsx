@@ -1,34 +1,34 @@
-import React, {useState} from "react";
-import {Redirect} from "react-router-dom";
+import {makeStyles} from "@material-ui/core";
+import React, {useMemo} from "react";
+import {PUBLIC_URL} from "../../../../constants";
 import history from "../../../../history";
 import useFavoriteCities from "../../../../hooks/useFavoriteCities";
 import LiveWeatherSummary from "../../../molecules/LiveWeatherSummary";
 import SearchCity from "../../../molecules/SearchCity";
 
+const useStyles = makeStyles({
+    root: { maxWidth: 750, margin: "auto", textAlign: "center" },
+});
 
 const WeatherCasterMainScreen = () => {
     const { cities, addCity } = useFavoriteCities();
-    const [redirectTo, setRedirect] = useState("");
-
     const redirect = (label: string) => () => {
-        // ?
-        history.push(label.replace(/ /g, "+"));
-        setRedirect(label.replace(/ /g, "+"))
+        history.push(`${PUBLIC_URL}/${label.replace(/ /g, "+")}`);
     };
+    const classes = useStyles();
 
-    return (<div style={{ maxWidth: 750, margin: "auto", textAlign: "center" }}>
-        { redirectTo !== "" ? <Redirect to={`/${redirectTo}`} /> : null }
-        <SearchCity onFound={(city) => {
-            window.focus();
-            addCity(city.label);
-        }} />
-        {cities.map((city) =>
-            <LiveWeatherSummary
-                key={city}
-                label={city}
-                onClick={redirect(city)}
-            />)}
-    </div>);
+    return (useMemo(() => (<div className={classes.root}>
+            <SearchCity onFound={(city) => {
+                window.focus();
+                addCity(city.label);
+            }} />
+            {cities.map((city) =>
+                <LiveWeatherSummary
+                    key={city}
+                    label={city}
+                    onClick={redirect(city)}
+                />)}
+        </div>), [addCity, cities, classes.root]));
 };
 
 export default WeatherCasterMainScreen;

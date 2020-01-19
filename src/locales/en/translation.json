@@ -18,5 +18,14 @@
   "wind": "Wind",
   "networkError": "Network Error",
   "city not found": "City not found",
-  "errorHappen": "An error has occurred"
+  "errorHappen": "An error has occurred",
+  "clear sky" : "Clear sky",
+  "few clouds" : "Few clouds",
+  "scattered clouds" : "Scattered clouds",
+  "broken clouds" : "Broken clouds\n",
+  "shower rain" : "Shower rain",
+  "rain" : "Rain",
+  "thunderstorm" : "Thunderstorm",
+  "snow" : "Snow",
+  "mist" : "Mist"
 }
