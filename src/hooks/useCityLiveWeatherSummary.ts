@@ -37,18 +37,23 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
     }, UPDATE_RATE);
     // after mount get data
     useEffect(() => {
-        API.getCityWeatherByName(label)
-            .then((ww) => {
-                if (mounted) {
-                    setWeather(updateTemp({ ...ww, loading: false }, tempConverter));
-                }
-            })
-            .catch((err) => {
-                // no internet use keep using cache
-                if (err.msg === "networkError" && weather.id === 0 && onNotFound) {
-                    onNotFound();
-                }
-            });
+        if (weather.loading) {
+            API.getCityWeatherByName(label)
+                .then((ww) => {
+                    if (mounted) {
+                        setWeather(updateTemp({ ...ww, loading: false }, tempConverter));
+                    }
+                })
+                .catch((err) => {
+                    // city not found
+                    // no internet use keep using cache
+                    if ((err.msg === "city not found" ||
+                        (err.msg === "networkError" && weather.id === 0))
+                        && onNotFound) {
+                        onNotFound();
+                    }
+                });
+        }
         return (() => setMounted(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -59,12 +64,15 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
 function initState(label: string, tempConverter: (t: number) => number): ICityWeatherSummary {
     const savedWeather: IAPICityWeatherResponse = CacheAPI.getCityWeatherSummary(label);
 
+    // no cache
     if (!savedWeather) {
         return ({ ...makeDummyCity(), loading: true, label })
     }
+    // dead cache
     if (Date.now() - savedWeather.at > DATA_LIFE_TIME) {
         return updateTemp({ ...savedWeather, loading: true }, tempConverter);
     }
+    // good cache
     return updateTemp({ ...savedWeather, loading: false }, tempConverter);
 }
 

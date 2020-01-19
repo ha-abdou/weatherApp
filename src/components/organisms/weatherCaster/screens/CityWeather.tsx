@@ -2,6 +2,7 @@ import {Button, makeStyles} from "@material-ui/core";
 import {ArrowBackIos as ArrowBackIosIcon, DeleteForever as DeleteForeverIcon} from '@material-ui/icons';
 import React, {useMemo, useState} from "react";
 import {Redirect} from "react-router-dom";
+import history from "../../../../history";
 import useFavoriteCities, {ICityWeatherSummary} from "../../../../hooks/useFavoriteCities";
 import LiveCityForecast from "../../../molecules/LiveCityForecast";
 import LiveWeatherSummary from "../../../molecules/LiveWeatherSummary";
@@ -26,13 +27,14 @@ const CityWeather = ({ label }: ICityWeatherProps) => {
         const remove = () => {
             if (realLabel) {
                 removeCity(realLabel);
-                redirect();
+                setRedirect("/");
             }
         };
         const onFound = (weather: ICityWeatherSummary) => {
             setRealLabel(weather.label);
         };
         const redirect = () => {
+            history.push("/");
             setRedirect("/");
         };
 
@@ -46,7 +48,10 @@ const CityWeather = ({ label }: ICityWeatherProps) => {
                     <DeleteForeverIcon />
                 </Button>
             </div>
-            <LiveWeatherSummary label={label.replace(/\+/g, " ")} onNotFound={redirect} onFound={onFound} />
+            <LiveWeatherSummary label={label.replace(/\+/g, " ")}
+                                onNotFound={() => setRedirect("/")}
+                                onFound={onFound}
+            />
             {realLabel ? <LiveCityForecast label={realLabel} /> : null }
         </div>);
     }, [classes.root, classes.floatLeft, classes.floatRight, redirectTo, label, realLabel, removeCity]));

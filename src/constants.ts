@@ -16,7 +16,7 @@ export function makeDummyCity(): ICityWeatherSummary {
         temp: 0,
         temp_max: 0,
         temp_min: 0,
-        weatherIcon: "http://openweathermap.org/img/wn/03n@2x.png",
+        weatherIcon: "/images/09d@2x.png",
     })
 }
 export const UPDATE_RATE = 1000;

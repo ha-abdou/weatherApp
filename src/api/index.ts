@@ -105,7 +105,7 @@ function getCityData(data: any): IAPICityWeatherResponse {
         temp: data.main.temp,
         temp_max: data.main.temp_max,
         temp_min: data.main.temp_min,
-        weatherIcon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
+        weatherIcon: `/images/${data.weather[0].icon}@2x.png`,
     });
 }
 
@@ -122,7 +122,7 @@ function getCityForecastData(data: any): IAPICityForecastResponse {
             date: day,
             humidity: elm.main.humidity,
             temp: elm.main.temp,
-            weatherIcon: `http://openweathermap.org/img/wn/${elm.weather[0].icon}@2x.png`,
+            weatherIcon: `/images/${elm.weather[0].icon}@2x.png`,
             wind: {
                 deg: elm.wind.deg,
                 speed: elm.wind.speed,

@@ -2,10 +2,12 @@ import {CssBaseline, makeStyles, ThemeProvider} from '@material-ui/core';
 import Cookies from "js-cookie";
 import {SnackbarProvider} from "notistack";
 import React from 'react';
+import {BrowserRouter as Router} from "react-router-dom";
 import appReducer, {SET_SETTINGS, TOGGLE_DRAWER} from "./App.reducer";
 import MyAppBar from "./components/atoms/MyAppBar";
 import MyDrawer from "./components/molecules/MyDrawer";
 import WeatherCaster from "./components/organisms/weatherCaster";
+import history from './history';
 import i18n from "./i18n";
 import SettingsContext from "./settingsContext";
 import {darkTheme, lightTheme} from "./themes";
@@ -41,21 +43,24 @@ const App = () => {
         Cookies.set(key, value.toString());
     };
 
-    return (<SettingsContext.Provider value={state}>
-        <ThemeProvider theme={state.theme === "light" ? lightTheme : darkTheme }>
-            <SnackbarProvider maxSnack={3}>
-                <div className={classes.root}>
-                    <CssBaseline />
-                    <MyAppBar title="Weather App" toggleDrawer={handleDrawerToggle} />
-                    <MyDrawer isOpen={state.drawer} toggle={handleDrawerToggle} />
-                    <main className={classes.content}>
-                        <div className={classes.toolbar} />
-                        <WeatherCaster />
-                    </main>
-                </div>
-            </SnackbarProvider>
-        </ThemeProvider>
-    </SettingsContext.Provider>);
+    // @ts-ignore
+    return (<Router history={history}>
+        <SettingsContext.Provider value={state}>
+            <ThemeProvider theme={state.theme === "light" ? lightTheme : darkTheme }>
+                <SnackbarProvider maxSnack={3}>
+                    <div className={classes.root}>
+                        <CssBaseline />
+                        <MyAppBar title="Weather App" toggleDrawer={handleDrawerToggle} />
+                        <MyDrawer isOpen={state.drawer} toggle={handleDrawerToggle} />
+                        <main className={classes.content}>
+                            <div className={classes.toolbar} />
+                            <WeatherCaster />
+                        </main>
+                    </div>
+                </SnackbarProvider>
+            </ThemeProvider>
+        </SettingsContext.Provider>
+    </Router>);
 };
 
 export default App;

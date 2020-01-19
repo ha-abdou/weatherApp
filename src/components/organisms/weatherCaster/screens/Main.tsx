@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router-dom";
+import history from "../../../../history";
 import useFavoriteCities from "../../../../hooks/useFavoriteCities";
 import LiveWeatherSummary from "../../../molecules/LiveWeatherSummary";
 import SearchCity from "../../../molecules/SearchCity";
@@ -10,6 +11,8 @@ const WeatherCasterMainScreen = () => {
     const [redirectTo, setRedirect] = useState("");
 
     const redirect = (label: string) => () => {
+        // ?
+        history.push(label.replace(/ /g, "+"));
         setRedirect(label.replace(/ /g, "+"))
     };
 
