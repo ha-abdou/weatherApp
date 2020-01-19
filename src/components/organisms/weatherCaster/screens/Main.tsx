@@ -15,7 +15,10 @@ const WeatherCasterMainScreen = () => {
 
     return (<div style={{ maxWidth: 750, margin: "auto", textAlign: "center" }}>
         { redirectTo !== "" ? <Redirect to={`/${redirectTo}`} /> : null }
-        <SearchCity onFound={(city) => addCity(city.label)} />
+        <SearchCity onFound={(city) => {
+            window.focus();
+            addCity(city.label);
+        }} />
         {cities.map((city) =>
             <LiveWeatherSummary
                 key={city}

@@ -18,7 +18,6 @@ const SearchCity = ({onFound}: ISearchCityProps) => {
         if (error && error !== "") {
             enqueueSnackbar(t(error), { variant: "error" });
         }
-
     }, [error, enqueueSnackbar, t]);
     return (<>
         <SearchInput onSearch={search}

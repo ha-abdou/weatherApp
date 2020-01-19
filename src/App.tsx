@@ -46,7 +46,7 @@ const App = () => {
             <SnackbarProvider maxSnack={3}>
                 <div className={classes.root}>
                     <CssBaseline />
-                    <MyAppBar title="Title" toggleDrawer={handleDrawerToggle} />
+                    <MyAppBar title="Weather App" toggleDrawer={handleDrawerToggle} />
                     <MyDrawer isOpen={state.drawer} toggle={handleDrawerToggle} />
                     <main className={classes.content}>
                         <div className={classes.toolbar} />

@@ -3,13 +3,11 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import API, {IAPICityWeatherResponse} from "../api";
 import CacheAPI from "../api/cache";
-import {DATA_LIFE_TIME, makeDummyCity} from "../constants";
+import {DATA_LIFE_TIME, makeDummyCity, UPDATE_RATE} from "../constants";
 import updateTemp from "../util/updateTemp";
 import {ICityWeatherSummary} from "./useFavoriteCities";
 import useInterval from "./useInterval";
 import useSettings from "./useSettings";
-
-const updateInterval = 1000;
 
 const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
     const { tempConverter } = useSettings();
@@ -23,9 +21,6 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
         , [tempConverter, weather.label]);
     // update data every updateInterval
     useInterval(() => {
-        if (Date.now() - weather.at < DATA_LIFE_TIME) {
-            return ;
-        }
         setWeather({ ...weather, loading: true });
         API.getCityWeatherByName(weather.label)
             .then((w) => {
@@ -39,7 +34,7 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
                     enqueueSnackbar(t(err.msg), { variant: "error" });
                 }
             });
-    }, updateInterval);
+    }, UPDATE_RATE);
     // after mount get data
     useEffect(() => {
         API.getCityWeatherByName(label)
@@ -48,7 +43,12 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
                     setWeather(updateTemp({ ...ww, loading: false }, tempConverter));
                 }
             })
-            .catch(onNotFound);
+            .catch((err) => {
+                // no internet use keep using cache
+                if (err.msg === "networkError" && weather.id === 0 && onNotFound) {
+                    onNotFound();
+                }
+            });
         return (() => setMounted(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

@@ -1,5 +1,5 @@
 import axios, {AxiosError} from "axios";
-import {TOKEN} from "../constants";
+import {DATA_LIFE_TIME, TOKEN} from "../constants";
 import CacheAPI from "./cache";
 
 export interface IAPICityWeatherResponse {
@@ -41,6 +41,10 @@ export interface IAPIError {
 const API = {
     getCityForecast: async (label: string): Promise<IAPICityForecastResponse> => {
         try {
+            const cache = CacheAPI.getCityForecast(label);
+            if (cache && Date.now() - cache.at < DATA_LIFE_TIME) {
+                return (cache);
+            }
             const data = (await axios.get("https://api.openweathermap.org/data/2.5/forecast", {
                 params: {
                     APPID: TOKEN,
@@ -51,21 +55,19 @@ const API = {
 
             CacheAPI.setCityForecast(forecast);
             return (forecast);
-        } catch (e) { throw handleError(e) }
-    },
-    getCityWeatherById: async (id: number): Promise<IAPICityWeatherResponse> => {
-        try {
-            const data = (await axios.get("https://api.openweathermap.org/data/2.5/weather", {
-                params: { id, APPID: TOKEN }
-            })).data;
-            const weatherSummaryData = getCityData(data);
-
-            CacheAPI.setCityWeatherSummary(weatherSummaryData);
-            return (weatherSummaryData);
-        } catch (e) { throw handleError(e) }
+        } catch (e) {
+            if (!e.response) {
+                return (CacheAPI.getCityForecast(label))
+            }
+            throw handleError(e);
+        }
     },
     getCityWeatherByName: async (name: string): Promise<IAPICityWeatherResponse> => {
         try {
+            const cache = CacheAPI.getCityWeatherSummary(name);
+            if (cache && Date.now() - cache.at < DATA_LIFE_TIME) {
+                return (cache);
+            }
             const data = (await axios.get("https://api.openweathermap.org/data/2.5/weather", {
                 params: {
                     APPID: TOKEN,
@@ -75,6 +77,8 @@ const API = {
             const weatherSummaryData = getCityData(data);
 
             CacheAPI.setCityWeatherSummary(weatherSummaryData);
+            // preloading forecast
+            API.getCityForecast(weatherSummaryData.label);
             return (weatherSummaryData);
         } catch (e) { throw handleError(e) }
     },
@@ -82,10 +86,10 @@ const API = {
 
 function handleError(e: AxiosError<{code: string, message: string}>) {
     if (!e.response) {
-        return ({ msg: "Network Error"})
+        return ({ msg: "networkError"})
     }
     if (e.response && e.response.data && e.response.data.message === "city not found") {
-        return ({ msg: "c" });
+        return ({ msg: "city not found" });
     }
     return ({ msg: "errorHappen" });
 }

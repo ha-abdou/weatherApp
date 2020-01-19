@@ -6,7 +6,7 @@ const getDefaultSettings = () => ({
     setSetting: (key: string, value: string | number | boolean) => { /**/ },
     speedUnit: Cookies.get("speedUnit") || "K/H",
     tempUnit: Cookies.get("tempUnit") || "c",
-    theme: Cookies.get("theme") || "light",
+    theme: Cookies.get("theme") || "dark",
 });
 
 export default getDefaultSettings;

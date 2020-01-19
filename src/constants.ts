@@ -19,7 +19,7 @@ export function makeDummyCity(): ICityWeatherSummary {
         weatherIcon: "http://openweathermap.org/img/wn/03n@2x.png",
     })
 }
-
+export const UPDATE_RATE = 1000;
 if (!TOKEN || TOKEN === "") {
     throw Error("Need token to get weather data");
 }

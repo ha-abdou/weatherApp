@@ -2,6 +2,8 @@ import {useSnackbar} from "notistack";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import API, {IAPICityForecastResponse, IAPIError} from "../api";
+import {UPDATE_RATE} from "../constants";
+import useInterval from "./useInterval";
 import useSettings from "./useSettings";
 
 const useCityForecast = (label: string) => {
@@ -33,7 +35,14 @@ const useCityForecast = (label: string) => {
             return true;
         })
     }, [selectedDay, tempConverter, speedConverter, forecastData]);
-
+    useInterval(() => {
+        API.getCityForecast(label)
+            .then((data) => {
+                setForecastData(data);
+                setDays(data.days.map((day) => day.date));
+            })
+            .catch((err: IAPIError) => enqueueSnackbar(t(err.msg), { variant: "error" }));
+    }, UPDATE_RATE);
     useEffect(() => {
         API.getCityForecast(label)
             .then((data) => {
@@ -41,7 +50,7 @@ const useCityForecast = (label: string) => {
                 setDays(data.days.map((day) => day.date));
                 setSelectedDay(data.days[0].date);
             })
-            .catch((err: IAPIError) => enqueueSnackbar(t(err.msg)))
+            .catch((err: IAPIError) => enqueueSnackbar(t(err.msg), { variant: "error" }))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return ({
