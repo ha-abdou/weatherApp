@@ -46,6 +46,7 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
             })
             .catch(onNotFound);
         return (() => setMounted(false));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return { weather };
 };

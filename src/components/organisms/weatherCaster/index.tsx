@@ -8,9 +8,7 @@ import {
 import CityWeather from "./screens/CityWeather";
 import WeatherCasterMainScreen from "./screens/Main";
 
-const WeatherCaster = () => {
-
-    return (<Router>
+const WeatherCaster = () => (<Router>
         <Switch>
             <Route path="/:cityLabel"
                    component={({match}: RouteComponentProps<{ cityLabel: string }>) =>
@@ -21,6 +19,6 @@ const WeatherCaster = () => {
             </Route>
         </Switch>
     </Router>);
-};
+
 
 export default React.memo(WeatherCaster, () => true);

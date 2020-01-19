@@ -69,4 +69,4 @@ const CityWeatherSummary = ({humidity, label, onClick, temp, temp_max, temp_min,
     </Card>);
 };
 
-export default CityWeatherSummary;
+export default React.memo(CityWeatherSummary);

@@ -15,8 +15,8 @@ const SpeedUnitSelector = ({value, onChange}: ISpeedUnitSelectorProps) => {
         <RadioGroup aria-label={t("speedUnit")}
                     value={value}
                     onChange={(_, v) => onChange(v)}>
-            <FormControlLabel value="kmph" control={<Radio />} label={t("KPH")} />
-            <FormControlLabel value="mlpr" control={<Radio />} label={t("MPH")} />
+            <FormControlLabel value="K/H" control={<Radio />} label={t("KPH")} />
+            <FormControlLabel value="M/H" control={<Radio />} label={t("MPH")} />
         </RadioGroup>
     </FormControl>);
 };

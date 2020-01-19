@@ -20,6 +20,7 @@ export interface IAPICityForecastResponse {
     days: Array<{
         date: string,
         data: Array<{
+            date: string;
             temp: number,
             humidity: number,
             weatherIcon: string,
@@ -27,7 +28,7 @@ export interface IAPICityForecastResponse {
                 speed: number,
                 deg: number,
             },
-            at: number, // hours
+            at: string,
         }>
     }>;
     at: number;
@@ -109,7 +110,8 @@ function getCityForecastData(data: any): IAPICityForecastResponse {
         const dt = elm.dt_txt.split(" ");
         const day: string = dt[0];
         const dayData: IAPICityForecastResponse["days"][0]["data"][0] = {
-            at: dt[1].split(":")[0],
+            at: `${dt[1].split(":")[0]}:00`,
+            date: day,
             humidity: elm.main.humidity,
             temp: elm.main.temp,
             weatherIcon: `http://openweathermap.org/img/wn/${elm.weather[0].icon}@2x.png`,
@@ -118,7 +120,6 @@ function getCityForecastData(data: any): IAPICityForecastResponse {
                 speed: elm.wind.speed,
             },
         };
-
         if (days.length === 0 || day !== days[days.length - 1].date) {
             days.push({
                 data: [ dayData ],
@@ -127,6 +128,7 @@ function getCityForecastData(data: any): IAPICityForecastResponse {
         } else {
             days[days.length - 1].data.push(dayData);
         }
+        return elm;
     });
     return ({
         at: Date.now(),

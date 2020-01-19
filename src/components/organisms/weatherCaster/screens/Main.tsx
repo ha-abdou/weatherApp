@@ -10,7 +10,7 @@ const WeatherCasterMainScreen = () => {
     const [redirectTo, setRedirect] = useState("");
 
     const redirect = (label: string) => () => {
-        setRedirect(label.replace(" ", "+"))
+        setRedirect(label.replace(/ /g, "+"))
     };
 
     return (<div style={{ maxWidth: 750, margin: "auto", textAlign: "center" }}>

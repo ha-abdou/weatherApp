@@ -1,56 +1,53 @@
 import {useEffect, useState} from "react";
-import API from "../api";
-import {DATA_LIFE_TIME} from "../constants";
-import {ICityWeatherSummary} from "./useFavoriteCities";
-
+import API, {IAPICityForecastResponse} from "../api";
+import useSettings from "./useSettings";
 
 const useCityForecast = (label: string) => {
-    const [cityWeather, setCityWaether] = useState<ICityWeatherSummary>(() => {
-        const cities: ICityWeatherSummary[] = JSON.parse(localStorage.getItem("favoriteCities") || "[]");
-        const city = cities.find((c) => c.label === label);
+    const [forecast, setForecast] = useState<IAPICityForecastResponse["days"][0]["data"]>([]);
+    const [days, setDays] = useState<string[]>([]);
+    const [forecastData, setForecastData] = useState<IAPICityForecastResponse|undefined>();
+    const [selectedDay, setSelectedDay] = useState<string|undefined>();
+    const { tempConverter, speedConverter } = useSettings();
 
-        if (!city) {
-            return (makeDummyCity(label))
-        }
-        if (Date.now() - city.at > DATA_LIFE_TIME) {
-            city.loading = true;
-        }
-        return (city);
-    });
-    const [fetchingCityWeather, setFetchingCityWeather] = useState<boolean>(false);
-    
-    
+    // update wen day are selected
     useEffect(() => {
-        if (cityWeather.loading && !fetchingCityWeather) {
-            setFetchingCityWeather(true);
-            API.getCityWeatherById(cityWeather.id)
-                .then((data) => {
-                    setFetchingCityWeather(false);
-                    setCityWaether({
-                        ...data,
-                        loading: false,
-                    })
-                });
+        if (!forecastData || !selectedDay) {
+            return;
         }
+        forecastData.days.find((day) => {
+            if (day.date !== selectedDay) {
+                return false
+            }
+            setForecast(day.data.map((elm) => ({
+                ...elm,
+                temp: tempConverter(elm.temp),
+                wind: {
+                    ...elm.wind,
+                    speed: speedConverter(elm.wind.speed),
+                }
+            })));
+            return true;
+        })
+    }, [selectedDay, tempConverter, speedConverter, forecastData]);
+
+    useEffect(() => {
+        API.getCityForecast(label)
+            .then((data) => {
+                setForecastData(data);
+                setDays(data.days.map((day) => day.date));
+                setSelectedDay(data.days[0].date);
+            })
+            .catch(() => {
+                // todo error
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return ({
-        cityWeather,
+        days,
+        forecast,
+        selectedDay,
+        setSelectedDay
     });
 };
 
 export default useCityForecast;
-
-function makeDummyCity(label: string): ICityWeatherSummary {
-    return({
-        at: 0,
-        humidity: 0,
-        id: 0,
-        label,
-        loading: true,
-        name: "loading",
-        temp: 0,
-        temp_max: 0,
-        temp_min: 0,
-        weatherIcon: "string",
-    })
-}
