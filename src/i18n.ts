@@ -19,8 +19,7 @@ i18n
     .use(detector)
     .use(initReactI18next)
     .init({
-        resources,
-        // tslint:disable-next-line:object-literal-sort-keys
+        debug: true,
         detection: {
             lookupCookie: "language",
         },
@@ -29,6 +28,7 @@ i18n
             escapeValue: false,
         },
         keySeparator: false,
+        resources,
     });
 
 export default i18n;

@@ -9,5 +9,11 @@
   "KPH": "Kilomètre par heure",
   "search": "Chercher",
   "clear": "Nettoyer",
-  "searchCity": "Rechercher une ville"
+  "searchCity": "Rechercher une ville",
+  "table forecast": "Tableau des prévisions météorologiques",
+  "time": "Heure",
+  "temp": "Température",
+  "sky": "Ciel",
+  "humidity": "Humidité",
+  "wind": "Vent"
 }

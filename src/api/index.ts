@@ -40,7 +40,6 @@ export interface IAPIError {
 
 const API = {
     getCityForecast: async (label: string): Promise<IAPICityForecastResponse> => {
-        console.log(label);
         try {
             const data = (await axios.get("https://api.openweathermap.org/data/2.5/forecast", {
                 params: {
