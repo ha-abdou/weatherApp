@@ -40,6 +40,7 @@ export interface IAPIError {
 
 const API = {
     getCityForecast: async (label: string): Promise<IAPICityForecastResponse> => {
+        console.log(label);
         try {
             const data = (await axios.get("https://api.openweathermap.org/data/2.5/forecast", {
                 params: {
@@ -47,7 +48,10 @@ const API = {
                     q: label,
                 }
             })).data;
-            return (getCityForecastData(data))
+            const forecast = getCityForecastData(data);
+
+            CacheAPI.setCityForecast(forecast);
+            return (forecast);
         } catch (e) { throw handleError(e) }
     },
     getCityWeatherById: async (id: number): Promise<IAPICityWeatherResponse> => {
@@ -79,10 +83,8 @@ const API = {
 
 function handleError(e: AxiosError<{code: string, message: string}>) {
     if (e.response && e.response.data && e.response.data.message === "city not found") {
-        // eslint-disable-next-line no-throw-literal
         return ({ msg: e.response.data.message });
     }
-    // eslint-disable-next-line no-throw-literal
     return ({ msg: "error happen" });
 }
 
@@ -132,10 +134,9 @@ function getCityForecastData(data: any): IAPICityForecastResponse {
     });
     return ({
         at: Date.now(),
+        days,
         id: data.city.id,
-        label: `${data.city.name}, ${data.city.country}`,
-        // tslint:disable-next-line:object-literal-sort-keys object-shorthand-properties-first
-        days
+        label: `${data.city.name}, ${data.city.country}`
     });
 }
 

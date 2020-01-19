@@ -18,36 +18,38 @@ const useStyles = makeStyles({
 
 const CityWeather = ({ label }: ICityWeatherProps) => {
     const { removeCity } = useFavoriteCities();
-    const [realLabel, setRealLabel] = useState(label.replace(/\+/g, " "));
+    const [realLabel, setRealLabel] = useState<string|undefined>();
     const [redirectTo, setRedirect] = useState("");
     const classes = useStyles();
-    const redirect = () => {
-        setRedirect("/");
-    };
-    const remove = () => {
-        removeCity(realLabel);
-        redirect();
-    };
-    const onFound = (weather: ICityWeatherSummary) => {
-        if (realLabel !== weather.label) {
-            setRealLabel(weather.label)
-        }
-    };
 
-    return (useMemo(() => (<div className={classes.root}>
-        { redirectTo !== "" ? <Redirect to={redirectTo} /> : null }
-        <div>
-            <Button variant="contained" className={classes.floatLeft} onClick={redirect}>
-                <ArrowBackIosIcon />
-            </Button>
-            <Button className={classes.floatRight} variant="contained" color="secondary" onClick={remove}>
-                <DeleteForeverIcon />
-            </Button>
-        </div>
-        <LiveWeatherSummary label={realLabel} onNotFound={redirect} onFound={onFound} />
-        <LiveCityForecast label={label} />
-    </div>), // eslint-disable-next-line react-hooks/exhaustive-deps
-        [label, classes, realLabel, redirectTo]));
+    return (useMemo(() => {
+        const remove = () => {
+            if (realLabel) {
+                removeCity(realLabel);
+                redirect();
+            }
+        };
+        const onFound = (weather: ICityWeatherSummary) => {
+            setRealLabel(weather.label);
+        };
+        const redirect = () => {
+            setRedirect("/");
+        };
+
+        return (<div className={classes.root}>
+            { redirectTo !== "" ? <Redirect to={redirectTo} /> : null }
+            <div>
+                <Button variant="contained" className={classes.floatLeft} onClick={redirect}>
+                    <ArrowBackIosIcon />
+                </Button>
+                <Button className={classes.floatRight} variant="contained" color="secondary" onClick={remove}>
+                    <DeleteForeverIcon />
+                </Button>
+            </div>
+            <LiveWeatherSummary label={label.replace(/\+/g, " ")} onNotFound={redirect} onFound={onFound} />
+            {realLabel ? <LiveCityForecast label={realLabel} /> : null }
+        </div>);
+    }, [classes.root, classes.floatLeft, classes.floatRight, redirectTo, label, realLabel, removeCity]));
 };
 
 export default CityWeather;
