@@ -1,6 +1,5 @@
-import {Snackbar} from "@material-ui/core";
-import {Alert as MuiAlert} from '@material-ui/lab';
-import React from "react";
+import {useSnackbar} from "notistack";
+import React, {useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {IAPICityWeatherResponse} from "../../../api";
 import useSearchCity from "../../../hooks/useSearchCity";
@@ -13,7 +12,14 @@ interface ISearchCityProps {
 const SearchCity = ({onFound}: ISearchCityProps) => {
     const { loading, value, setValue, search, error } = useSearchCity(onFound);
     const { t } = useTranslation();
+    const {enqueueSnackbar} = useSnackbar();
 
+    useEffect(() => {
+        if (error && error !== "") {
+            enqueueSnackbar(t(error), { variant: "error" });
+        }
+
+    }, [error, enqueueSnackbar, t]);
     return (<>
         <SearchInput onSearch={search}
                      onChange={setValue}
@@ -22,12 +28,6 @@ const SearchCity = ({onFound}: ISearchCityProps) => {
                      style={{ maxWidth: "400px", margin: "auto", marginBottom: "10px" }}
                      placeholder={t("searchCity")}
         />
-        <Snackbar anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                  open={error && error !== ""}
-                  autoHideDuration={6000}
-        >
-            <MuiAlert elevation={6} variant="filled" severity="error">{t(error)}</MuiAlert>
-        </Snackbar>
     </>);
 };
 

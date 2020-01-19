@@ -1,5 +1,7 @@
+import {useSnackbar} from "notistack";
 import {useEffect, useState} from "react";
-import API, {IAPICityForecastResponse} from "../api";
+import {useTranslation} from "react-i18next";
+import API, {IAPICityForecastResponse, IAPIError} from "../api";
 import useSettings from "./useSettings";
 
 const useCityForecast = (label: string) => {
@@ -8,6 +10,8 @@ const useCityForecast = (label: string) => {
     const [forecastData, setForecastData] = useState<IAPICityForecastResponse|undefined>();
     const [selectedDay, setSelectedDay] = useState<string|undefined>();
     const { tempConverter, speedConverter } = useSettings();
+    const { t } = useTranslation();
+    const {enqueueSnackbar} = useSnackbar();
 
     // update wen day are selected
     useEffect(() => {
@@ -37,9 +41,7 @@ const useCityForecast = (label: string) => {
                 setDays(data.days.map((day) => day.date));
                 setSelectedDay(data.days[0].date);
             })
-            .catch(() => {
-                // todo error
-            })
+            .catch((err: IAPIError) => enqueueSnackbar(t(err.msg)))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return ({

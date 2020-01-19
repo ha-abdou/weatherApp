@@ -1,5 +1,6 @@
-import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
+import {CssBaseline, makeStyles, ThemeProvider} from '@material-ui/core';
 import Cookies from "js-cookie";
+import {SnackbarProvider} from "notistack";
 import React from 'react';
 import appReducer, {SET_SETTINGS, TOGGLE_DRAWER} from "./App.reducer";
 import MyAppBar from "./components/atoms/MyAppBar";
@@ -37,20 +38,22 @@ const App = () => {
             payload: { key, value },
             type: SET_SETTINGS
         });
-        Cookies.set(key, value.toString()); // todo review value type
+        Cookies.set(key, value.toString());
     };
 
     return (<SettingsContext.Provider value={state}>
         <ThemeProvider theme={state.theme === "light" ? lightTheme : darkTheme }>
-            <div className={classes.root}>
-                <CssBaseline />
-                <MyAppBar title="Title" toggleDrawer={handleDrawerToggle} />
-                <MyDrawer isOpen={state.drawer} toggle={handleDrawerToggle} />
-                <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                    <WeatherCaster />
-                </main>
-            </div>
+            <SnackbarProvider maxSnack={3}>
+                <div className={classes.root}>
+                    <CssBaseline />
+                    <MyAppBar title="Title" toggleDrawer={handleDrawerToggle} />
+                    <MyDrawer isOpen={state.drawer} toggle={handleDrawerToggle} />
+                    <main className={classes.content}>
+                        <div className={classes.toolbar} />
+                        <WeatherCaster />
+                    </main>
+                </div>
+            </SnackbarProvider>
         </ThemeProvider>
     </SettingsContext.Provider>);
 };

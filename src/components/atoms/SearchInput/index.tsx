@@ -9,7 +9,7 @@ import {
     Theme
 } from "@material-ui/core";
 import {Clear as ClearIcon, Search as SearchIcon} from "@material-ui/icons";
-import React, {CSSProperties} from "react";
+import React, {CSSProperties, KeyboardEvent} from "react";
 import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,7 +46,7 @@ const SearchInput = ({ loading, placeholder, onChange, onSearch, value, style}: 
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const keyPress = (e: KeyboardEvent) => {
+    const keyPress = (e: KeyboardEvent<HTMLDivElement>) => {
         if(e.key === "Enter"){
             onSearch(value);
             e.preventDefault();
@@ -59,7 +59,6 @@ const SearchInput = ({ loading, placeholder, onChange, onSearch, value, style}: 
             inputProps={{ 'aria-label': placeholder }}
             value={value}
             onChange={(event) => onChange(event.target.value)}
-            // @ts-ignore todo
             onKeyPress={keyPress}
         />
         <IconButton color="secondary"

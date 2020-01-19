@@ -15,5 +15,8 @@
   "temp": "Temperature",
   "sky": "Sky",
   "humidity": "Humidity",
-  "wind": "Wind"
+  "wind": "Wind",
+  "networkError": "Network Error",
+  "city not found": "City not found",
+  "errorHappen": "An error has occurred"
 }

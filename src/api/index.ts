@@ -81,10 +81,13 @@ const API = {
 };
 
 function handleError(e: AxiosError<{code: string, message: string}>) {
-    if (e.response && e.response.data && e.response.data.message === "city not found") {
-        return ({ msg: e.response.data.message });
+    if (!e.response) {
+        return ({ msg: "Network Error"})
     }
-    return ({ msg: "error happen" });
+    if (e.response && e.response.data && e.response.data.message === "city not found") {
+        return ({ msg: "c" });
+    }
+    return ({ msg: "errorHappen" });
 }
 
 // tslint:disable-next-line:no-any

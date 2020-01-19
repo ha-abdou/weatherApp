@@ -1,4 +1,6 @@
+import {useSnackbar} from "notistack";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import API, {IAPICityWeatherResponse} from "../api";
 import CacheAPI from "../api/cache";
 import {DATA_LIFE_TIME, makeDummyCity} from "../constants";
@@ -13,6 +15,8 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
     const { tempConverter } = useSettings();
     const [mounted, setMounted] = useState<boolean>(true);
     const [weather, setWeather] = useState<ICityWeatherSummary>(initState.bind(null, label, tempConverter));
+    const { t } = useTranslation();
+    const {enqueueSnackbar} = useSnackbar();
 
     // update temp wen temp unit change
     useEffect(() =>  setWeather(initState(weather.label, tempConverter))
@@ -29,10 +33,10 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
                     setWeather(updateTemp({...w, loading: false}, tempConverter));
                 }
             })
-            .catch(() => {
+            .catch((err) => {
                 if (mounted) {
                     setWeather({ ...weather, loading: false });
-                    // todo show error alert
+                    enqueueSnackbar(t(err.msg), { variant: "error" });
                 }
             });
     }, updateInterval);
