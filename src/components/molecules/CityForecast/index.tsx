@@ -34,7 +34,7 @@ const CityForecast = ({forecast}: ICityForecastProps) => {
                     <TableCell component="th" scope="row">{row.at}</TableCell>
                     <TableCell align="right">{row.temp}°</TableCell>
                     <TableCell align="right">
-                        <img alt="todo"
+                        <img alt={row.iconALT}
                              className={classes.weatherIcon}
                              src={row.weatherIcon}
                         />

@@ -1,5 +1,6 @@
 import {Card, CardContent, CardHeader, createStyles, Divider, LinearProgress, makeStyles} from "@material-ui/core";
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 interface ICityWeatherSummaryProps {
     humidity: number,
@@ -8,6 +9,7 @@ interface ICityWeatherSummaryProps {
     temp_max: number,
     temp_min: number,
     weatherIcon: string,
+    iconALT: string,
     updating?: boolean;
     onClick?: () => void;
 }
@@ -50,15 +52,16 @@ const useStyles = makeStyles(() =>
     }),
 );
 
-const CityWeatherSummary = ({humidity, label, onClick, temp, temp_max, temp_min, updating, weatherIcon}: ICityWeatherSummaryProps) => {
+const CityWeatherSummary = ({iconALT, humidity, label, onClick, temp, temp_max, temp_min, updating, weatherIcon}: ICityWeatherSummaryProps) => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (<Card className={classes.root} onClick={onClick} >
         { updating ? <LinearProgress className={classes.progress} /> : <div className={classes.emptyDiv} /> }
         <CardHeader title={label} />
         <Divider />
         <CardContent className={classes.tempHolder}>
-            <img className={classes.weatherIcon} src={weatherIcon} alt="todo"/>
+            <img className={classes.weatherIcon} src={weatherIcon} alt={t(iconALT)}/>
             <span className={classes.tempSpan}>{temp}°</span>
         </CardContent>
         <Divider className={classes.divider} />

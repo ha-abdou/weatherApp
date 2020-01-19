@@ -9,6 +9,7 @@ export function makeDummyCity(): ICityWeatherSummary {
     return({
         at: 0,
         humidity: 0,
+        iconALT: "loading",
         id: 0,
         label: "",
         loading: true,

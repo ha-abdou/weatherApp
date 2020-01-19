@@ -11,6 +11,7 @@ export interface IAPICityWeatherResponse {
     temp_max: number,
     temp_min: number,
     weatherIcon: string,
+    iconALT: string,
     at: number,
 }
 
@@ -24,6 +25,7 @@ export interface IAPICityForecastResponse {
             temp: number,
             humidity: number,
             weatherIcon: string,
+            iconALT: string,
             wind: {
                 speed: number,
                 deg: number,
@@ -99,6 +101,7 @@ function getCityData(data: any): IAPICityWeatherResponse {
     return ({
         at: Date.now(),
         humidity: data.main.humidity,
+        iconALT: data.weather[0].description,
         id: data.id,
         label: `${data.name}, ${data.sys.country}`,
         name: data.name,
@@ -121,6 +124,7 @@ function getCityForecastData(data: any): IAPICityForecastResponse {
             at: `${dt[1].split(":")[0]}:00`,
             date: day,
             humidity: elm.main.humidity,
+            iconALT: elm.weather[0].description,
             temp: elm.main.temp,
             weatherIcon: `/images/${elm.weather[0].icon}@2x.png`,
             wind: {
