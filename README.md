@@ -8,6 +8,7 @@ Weather API [https://openweathermap.org/](https://openweathermap.org/).<br />
 * Mobile friendly
 * Can be added to home screen.
 * Available offline.
+* Weather data update automatically every 10 minutes
 * 99 lighthouse score
 * French/English language.
 * Fehrenhite/Celecus as temperature unit.
