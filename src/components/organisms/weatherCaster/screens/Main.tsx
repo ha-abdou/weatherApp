@@ -28,7 +28,7 @@ const WeatherCasterMainScreen = () => {
                     label={city}
                     onClick={redirect(city)}
                 />)}
-        </div>), [addCity, cities, classes.root]));
+        </div>), [addCity, cities, classes]));
 };
 
 export default WeatherCasterMainScreen;

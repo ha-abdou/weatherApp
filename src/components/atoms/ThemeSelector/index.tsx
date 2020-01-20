@@ -1,5 +1,5 @@
 import {FormControlLabel, Switch} from "@material-ui/core";
-import * as React from "react";
+import React, {useMemo} from "react";
 import {useTranslation} from "react-i18next";
 
 interface IThemeSelectorProps {
@@ -10,16 +10,14 @@ interface IThemeSelectorProps {
 const ThemeSelector = ({theme, onChange}: IThemeSelectorProps) => {
     const [t] = useTranslation();
 
-    return (<FormControlLabel
+    return (useMemo(() => (<FormControlLabel
         control={<Switch
             defaultChecked={theme !== "light"}
-            inputProps={{ 'aria-label': 'checkbox with default color' }}
+            inputProps={{ 'aria-label': t("darkTheme")}}
             onChange={(_, checked) => onChange(checked? "dark" : "light")}
         />}
         label={t("darkTheme")}
-    />);
+    />), [t, theme, onChange]));
 };
 
-const propsAreEqual = (p: IThemeSelectorProps, n: IThemeSelectorProps) => p.theme === n.theme;
-
-export default React.memo(ThemeSelector, propsAreEqual);
+export default ThemeSelector;

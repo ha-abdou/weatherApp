@@ -9,7 +9,7 @@ import {
     Theme
 } from "@material-ui/core";
 import {Clear as ClearIcon, Search as SearchIcon} from "@material-ui/icons";
-import React, {CSSProperties, KeyboardEvent} from "react";
+import React, {CSSProperties, KeyboardEvent, useMemo} from "react";
 import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,42 +46,39 @@ const SearchInput = ({ loading, placeholder, onChange, onSearch, value, style}: 
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const keyPress = (e: KeyboardEvent<HTMLDivElement>) => {
-        if(e.key === "Enter"){
-            onSearch(value);
-            e.preventDefault();
-        }
-    };
-    return (<Paper component="form" className={classes.root} style={style}>
-        <InputBase
-            className={classes.input}
-            placeholder={placeholder}
-            inputProps={{ 'aria-label': placeholder }}
-            value={value}
-            onChange={(event) => onChange(event.target.value)}
-            onKeyPress={keyPress}
-        />
-        <IconButton color="secondary"
-                    className={classes.iconButton}
-                    aria-label={t("clear")}
-                    onClick={onChange.bind(null, "")}
-        >
-            <ClearIcon />
-        </IconButton>
-        <Divider className={classes.divider} orientation="vertical" />
-        <IconButton className={classes.iconButton}
-                    aria-label={t("search")}
-                    onClick={onSearch.bind(null, value)}
-        >
-            { loading ? <CircularProgress size={24} thickness={5} /> : <SearchIcon /> }
-        </IconButton>
-    </Paper>);
+    return (useMemo(() => {
+        const keyPress = (e: KeyboardEvent<HTMLDivElement>) => {
+            if(e.key === "Enter"){
+                onSearch(value);
+                e.preventDefault();
+            }
+        };
+
+        return (<Paper component="form" className={classes.root} style={style}>
+            <InputBase
+                className={classes.input}
+                placeholder={placeholder}
+                inputProps={{ 'aria-label': placeholder }}
+                value={value}
+                onChange={(event) => onChange(event.target.value)}
+                onKeyPress={keyPress}
+            />
+            <IconButton color="secondary"
+                        className={classes.iconButton}
+                        aria-label={t("clear")}
+                        onClick={onChange.bind(null, "")}
+            >
+                <ClearIcon />
+            </IconButton>
+            <Divider className={classes.divider} orientation="vertical" />
+            <IconButton className={classes.iconButton}
+                        aria-label={t("search")}
+                        onClick={onSearch.bind(null, value)}
+            >
+                { loading ? <CircularProgress size={24} thickness={5} /> : <SearchIcon /> }
+            </IconButton>
+        </Paper>)
+    }, [classes, loading, onChange, onSearch, placeholder, style, t, value]));
 };
 
-const propsAreEqual = (p: ISearchInputProps, n: ISearchInputProps) => (
-    p.placeholder === n.placeholder &&
-    p.value === n.value &&
-    p.loading === n.loading
-);
-
-export default React.memo(SearchInput, propsAreEqual);
+export default SearchInput;

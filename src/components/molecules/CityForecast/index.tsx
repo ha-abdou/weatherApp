@@ -9,10 +9,10 @@ interface ICityForecastProps {
     forecast: IAPICityForecastResponse["days"][0]["data"];
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
     arrow: { display: "inline-block", fontSize: 20, marginLeft: 3 },
     weatherIcon: {width: 75, margin: "auto", background: "#c7c7c7" , marginTop: 7, borderRadius: 50}
-}));
+});
 
 const CityForecast = ({forecast}: ICityForecastProps) => {
     const {speedUnit} = useSettings();

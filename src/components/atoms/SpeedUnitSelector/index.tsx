@@ -1,5 +1,5 @@
 import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@material-ui/core";
-import * as React from "react";
+import React, { useMemo } from "react";
 import {useTranslation} from "react-i18next";
 
 interface ISpeedUnitSelectorProps {
@@ -10,7 +10,7 @@ interface ISpeedUnitSelectorProps {
 const SpeedUnitSelector = ({value, onChange}: ISpeedUnitSelectorProps) => {
     const { t } = useTranslation();
 
-    return (<FormControl component="fieldset" >
+    return (useMemo(() => (<FormControl component="fieldset" >
         <FormLabel component="legend">{t("speedUnit")} :</FormLabel>
         <RadioGroup aria-label={t("speedUnit")}
                     value={value}
@@ -18,9 +18,7 @@ const SpeedUnitSelector = ({value, onChange}: ISpeedUnitSelectorProps) => {
             <FormControlLabel value="K/H" control={<Radio />} label={t("KPH")} />
             <FormControlLabel value="M/H" control={<Radio />} label={t("MPH")} />
         </RadioGroup>
-    </FormControl>);
+    </FormControl>), [t, value, onChange]));
 };
 
-const propsAreEqual = (p: ISpeedUnitSelectorProps, n: ISpeedUnitSelectorProps) => p.value === n.value;
-
-export default React.memo(SpeedUnitSelector, propsAreEqual);
+export default SpeedUnitSelector;

@@ -27,5 +27,6 @@
   "rain" : "Pluie",
   "thunderstorm" : "Orage",
   "snow" : "Neige",
-  "mist" : "Brouillard"
+  "mist" : "Brouillard",
+  "title": "Météo"
 }

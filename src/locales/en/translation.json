@@ -27,5 +27,6 @@
   "rain" : "Rain",
   "thunderstorm" : "Thunderstorm",
   "snow" : "Snow",
-  "mist" : "Mist"
+  "mist" : "Mist",
+  "title": "Weather"
 }

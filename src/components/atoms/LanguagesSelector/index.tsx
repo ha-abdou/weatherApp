@@ -1,5 +1,5 @@
 import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@material-ui/core";
-import * as React from "react";
+import React, {useMemo} from "react";
 import {useTranslation} from "react-i18next";
 
 interface ILanguagesSelectorProps {
@@ -11,7 +11,7 @@ interface ILanguagesSelectorProps {
 const LanguagesSelector = ({value,languages, onChange}: ILanguagesSelectorProps) => {
     const { t } = useTranslation();
 
-    return (<FormControl component="fieldset" >
+    return (useMemo(() => (<FormControl component="fieldset" >
         <FormLabel component="legend">{t("languages")} :</FormLabel>
         <RadioGroup aria-label={t("languages")}
                     value={value}
@@ -19,9 +19,7 @@ const LanguagesSelector = ({value,languages, onChange}: ILanguagesSelectorProps)
             {languages.map(({name, code}) =>
                 <FormControlLabel key={code} value={code} control={<Radio />} label={name} />)}
         </RadioGroup>
-    </FormControl>);
+    </FormControl>), [value, languages, t, onChange]));
 };
 
-const propsAreEqual = (p: ILanguagesSelectorProps, n: ILanguagesSelectorProps) => p.value === n.value;
-
-export default React.memo(LanguagesSelector, propsAreEqual);
+export default LanguagesSelector;

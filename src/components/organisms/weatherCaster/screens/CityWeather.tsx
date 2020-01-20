@@ -54,7 +54,7 @@ const CityWeather = ({ label }: ICityWeatherProps) => {
             />
             {realLabel ? <LiveCityForecast label={realLabel} /> : null }
         </div>);
-    }, [classes.root, classes.floatLeft, classes.floatRight, label, realLabel, removeCity]));
+    }, [classes, label, realLabel, removeCity]));
 };
 
 export default CityWeather;

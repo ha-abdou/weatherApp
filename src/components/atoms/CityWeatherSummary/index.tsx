@@ -1,5 +1,5 @@
-import {Card, CardContent, CardHeader, createStyles, Divider, LinearProgress, makeStyles} from "@material-ui/core";
-import React from "react";
+import {Card, CardContent, CardHeader, Divider, LinearProgress, makeStyles} from "@material-ui/core";
+import React, {useMemo} from "react";
 import {useTranslation} from "react-i18next";
 import {PUBLIC_URL} from "../../../constants";
 
@@ -14,8 +14,7 @@ interface ICityWeatherSummaryProps {
     updating?: boolean;
     onClick?: () => void;
 }
-const useStyles = makeStyles(() =>
-    createStyles({
+const useStyles = makeStyles({
         divider: {
             marginBottom: 10,
             marginTop: 10
@@ -49,15 +48,13 @@ const useStyles = makeStyles(() =>
             margin: "auto",
             marginTop: 7,
             width: 100,
-        }
-    }),
-);
+        }});
 
 const CityWeatherSummary = ({iconALT, humidity, label, onClick, temp, temp_max, temp_min, updating, weatherIcon}: ICityWeatherSummaryProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    return (<Card className={classes.root} onClick={onClick} >
+    return (useMemo(() => (<Card className={classes.root} onClick={onClick} >
         { updating ? <LinearProgress className={classes.progress} /> : <div className={classes.emptyDiv} /> }
         <CardHeader title={label} />
         <Divider />
@@ -70,7 +67,7 @@ const CityWeatherSummary = ({iconALT, humidity, label, onClick, temp, temp_max, 
             <span style={{ float: "left" }}>{temp_max}°↑ {temp_min}°↓</span>
             <span style={{ float: "right"}}>{humidity}%</span>
         </div>
-    </Card>);
+    </Card>), [classes, humidity, iconALT, label, onClick, t, temp, temp_max, temp_min, updating, weatherIcon]));
 };
 
-export default React.memo(CityWeatherSummary);
+export default CityWeatherSummary;

@@ -1,5 +1,5 @@
 import {Divider, List, ListItem, makeStyles} from "@material-ui/core";
-import * as React from "react";
+import React, { useMemo } from "react";
 import useSettings from "../../../hooks/useSettings/index";
 import {languages} from "../../../i18n";
 import LanguagesSelector from "../../atoms/LanguagesSelector";
@@ -15,7 +15,7 @@ const DrawerContent = () => {
     const classes = useStyles();
     const { language, tempUnit, speedUnit, theme, setSetting } = useSettings();
 
-    return (<div>
+    return (useMemo(() => (<div>
         <div className={classes.toolbar} />
         <Divider />
         <List>
@@ -41,7 +41,7 @@ const DrawerContent = () => {
             </ListItem>
             <Divider />
         </List>
-    </div>);
+    </div>), [classes, language, setSetting, speedUnit, tempUnit, theme]));
 };
 
 export default DrawerContent;

@@ -24,7 +24,7 @@ export const SettingsProvider: React.SFC = (props) => {
             },
             type: SET_SETTINGS,
         });
-        Cookies.set(key, toString());
+        Cookies.set(key, value.toString());
     });
 
     return (<SettingsContext.Provider value={{ ...state, setSetting }} >

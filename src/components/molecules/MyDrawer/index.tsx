@@ -1,5 +1,5 @@
 import { Drawer, Hidden, makeStyles} from "@material-ui/core";
-import React from "react";
+import React, {useMemo} from "react";
 import {drawerWidth} from "../../../constants";
 import useSettings from "../../../hooks/useSettings";
 import DrawerContent from "../DrawerContent";
@@ -18,32 +18,34 @@ const useStyles = makeStyles((theme) => ({
 
 const MyDrawer = () => {
     const classes = useStyles();
-    const settings = useSettings();
+    const {setSetting, drawer} = useSettings();
 
-    const handleDrawerToggle = () => {
-        settings.setSetting("drawer", !settings.drawer);
-    };
+    return (useMemo(() => {
+        const handleDrawerToggle = () => {
+            setSetting("drawer", !drawer);
+        };
 
-    return (<nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden lgUp={true} implementation="css">
-            <Drawer variant="temporary"
-                    open={settings.drawer}
-                    onClose={handleDrawerToggle}
-                    classes={{ paper: classes.drawerPaper }}
-                    ModalProps={{ keepMounted: true }}
-            >
-                <DrawerContent />
-            </Drawer>
-        </Hidden>
-        <Hidden smDown={true} implementation="css">
-            <Drawer classes={{ paper: classes.drawerPaper }}
-                    variant="permanent"
-                    open={true}
-            >
-                <DrawerContent />
-            </Drawer>
-        </Hidden>
-    </nav>);
+        return (<nav className={classes.drawer} aria-label="mailbox folders">
+            <Hidden lgUp={true} implementation="css">
+                <Drawer variant="temporary"
+                        open={drawer}
+                        onClose={handleDrawerToggle}
+                        classes={{ paper: classes.drawerPaper }}
+                        ModalProps={{ keepMounted: true }}
+                >
+                    <DrawerContent />
+                </Drawer>
+            </Hidden>
+            <Hidden smDown={true} implementation="css">
+                <Drawer classes={{ paper: classes.drawerPaper }}
+                        variant="permanent"
+                        open={true}
+                >
+                    <DrawerContent />
+                </Drawer>
+            </Hidden>
+        </nav>);
+    }, [classes, setSetting, drawer]));
 };
 
 export default MyDrawer;

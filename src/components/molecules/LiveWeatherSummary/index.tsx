@@ -27,7 +27,7 @@ const LiveWeatherSummary = ({label, onNotFound, onClick, onFound}: ILiveWeatherS
                                                updating={weather.loading}
                                                iconALT={weather.iconALT}
                                                onClick={onClick}
-    />), [onClick, weather.humidity, weather.iconALT, weather.label, weather.loading, weather.temp, weather.temp_max, weather.temp_min, weather.weatherIcon]));
+    />), [onClick, weather]));
 };
 
 export default LiveWeatherSummary;
