@@ -15,6 +15,9 @@ const useFavoriteCities = () => {
 
     return ({
         addCity: (city: string) => {
+            if (cities.indexOf(city) !== -1) {
+                return;
+            }
             const newCities = [city, ...cities];
 
             setCities(newCities);

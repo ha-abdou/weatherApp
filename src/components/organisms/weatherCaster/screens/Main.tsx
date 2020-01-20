@@ -19,8 +19,12 @@ const WeatherCasterMainScreen = () => {
 
     return (useMemo(() => (<div className={classes.root}>
             <SearchCity onFound={(city) => {
-                window.focus();
                 addCity(city.label);
+                try {
+                    if (document.activeElement) {
+                        (document.activeElement as HTMLElement).blur();
+                    }
+                } catch (e) { /**/ }
             }} />
             {cities.map((city) =>
                 <LiveWeatherSummary
