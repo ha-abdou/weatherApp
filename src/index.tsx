@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import {SettingsProvider} from "./hooks/useSettings/provider";
 import './i18n';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<SettingsProvider><App /></SettingsProvider>, document.getElementById('root'));
@@ -12,4 +11,3 @@ ReactDOM.render(<SettingsProvider><App /></SettingsProvider>, document.getElemen
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register();
-// logo https://mdbootstrap.com/material-design-text-logo-generator/

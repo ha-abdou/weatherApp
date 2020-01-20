@@ -1,7 +1,7 @@
 import {Card, CardContent, CardHeader, Divider, LinearProgress, makeStyles} from "@material-ui/core";
 import React, {useMemo} from "react";
 import {useTranslation} from "react-i18next";
-import {PUBLIC_URL} from "../../../constants";
+import getIMG from "../../../images";
 
 interface ICityWeatherSummaryProps {
     humidity: number,
@@ -59,7 +59,7 @@ const CityWeatherSummary = ({iconALT, humidity, label, onClick, temp, temp_max, 
         <CardHeader title={label} />
         <Divider />
         <CardContent className={classes.tempHolder}>
-            <img className={classes.weatherIcon} src={PUBLIC_URL + weatherIcon} alt={t(iconALT)}/>
+            <img className={classes.weatherIcon} src={getIMG(weatherIcon)} alt={t(iconALT)}/>
             <span className={classes.tempSpan}>{temp}°</span>
         </CardContent>
         <Divider className={classes.divider} />

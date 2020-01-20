@@ -1,5 +1,5 @@
 import {Card, Select} from "@material-ui/core";
-import React, {useMemo} from "react";
+import React, {CSSProperties, useMemo} from "react";
 import useCityForecast from "../../../hooks/useCityForecast";
 import CityForecast from "../CityForecast";
 
@@ -7,10 +7,12 @@ interface ILiveCityForecastProps {
     label: string;
 }
 
+const style: CSSProperties = { display: "inline-block" };
+
 const LiveCityForecast = ({label}: ILiveCityForecastProps) => {
     const { forecast, days, setSelectedDay, selectedDay } = useCityForecast(label);
 
-    return useMemo(() => (<Card>
+    return useMemo(() => (<Card style={style}>
         <Select
             native={true}
             value={selectedDay}

@@ -108,7 +108,7 @@ function getCityData(data: any): IAPICityWeatherResponse {
         temp: data.main.temp,
         temp_max: data.main.temp_max,
         temp_min: data.main.temp_min,
-        weatherIcon: `/images/${data.weather[0].icon}@2x.png`,
+        weatherIcon: data.weather[0].icon,
     });
 }
 
@@ -126,7 +126,7 @@ function getCityForecastData(data: any): IAPICityForecastResponse {
             humidity: elm.main.humidity,
             iconALT: elm.weather[0].description,
             temp: elm.main.temp,
-            weatherIcon: `/images/${elm.weather[0].icon}@2x.png`,
+            weatherIcon: elm.weather[0].icon,
             wind: {
                 deg: elm.wind.deg,
                 speed: elm.wind.speed,
