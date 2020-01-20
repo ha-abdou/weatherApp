@@ -15,8 +15,10 @@ const useFavoriteCities = () => {
 
     return ({
         addCity: (city: string) => {
-            setCities([city, ...cities]);
-            CacheAPI.setFavoriteCities(cities);
+            const newCities = [city, ...cities];
+
+            setCities(newCities);
+            CacheAPI.setFavoriteCities(newCities);
         },
         cities,
         removeCity,

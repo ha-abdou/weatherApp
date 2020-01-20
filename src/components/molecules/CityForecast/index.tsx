@@ -11,7 +11,8 @@ interface ICityForecastProps {
 
 const useStyles = makeStyles({
     arrow: { display: "inline-block", fontSize: 20, marginLeft: 3 },
-    weatherIcon: {width: 75, margin: "auto", background: "#c7c7c7" , marginTop: 7, borderRadius: 50}
+    table: { display: "block", maxWidth: "calc(100vw - 48px)", overflow: "auto"},
+    weatherIcon: {width: 75, margin: "auto", background: "#c7c7c7" , marginTop: 7, borderRadius: 50},
 });
 
 const CityForecast = ({forecast}: ICityForecastProps) => {
@@ -19,7 +20,7 @@ const CityForecast = ({forecast}: ICityForecastProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
-    return useMemo(() => (<Table aria-label={t("table forecast")}>
+    return useMemo(() => (<Table className={classes.table} aria-label={t("table forecast")}>
         <TableHead>
             <TableRow>
                 <TableCell>{t("time")}</TableCell>
