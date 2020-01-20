@@ -2,8 +2,8 @@ import {makeStyles, Table, TableBody, TableCell, TableHead, TableRow} from "@mat
 import React, {useMemo} from "react";
 import {useTranslation} from "react-i18next";
 import {IAPICityForecastResponse} from "../../../api";
-import useSettings from "../../../hooks/useSettings";
 import {PUBLIC_URL} from "../../../constants";
+import useSettings from "../../../hooks/useSettings";
 
 interface ICityForecastProps {
     forecast: IAPICityForecastResponse["days"][0]["data"];

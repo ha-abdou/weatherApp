@@ -1,7 +1,7 @@
 import {Divider, List, ListItem, makeStyles} from "@material-ui/core";
 import * as React from "react";
+import useSettings from "../../../hooks/useSettings/index";
 import {languages} from "../../../i18n";
-import SettingsContext from "../../../settingsContext";
 import LanguagesSelector from "../../atoms/LanguagesSelector";
 import SpeedUnitSelector from "../../atoms/SpeedUnitSelector";
 import TempSelector from "../../atoms/TempSelector";
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DrawerContent = () => {
     const classes = useStyles();
-    const { language, tempUnit, speedUnit, theme, setSetting } = React.useContext(SettingsContext);
+    const { language, tempUnit, speedUnit, theme, setSetting } = useSettings();
 
     return (<div>
         <div className={classes.toolbar} />

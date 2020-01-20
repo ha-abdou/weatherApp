@@ -1,6 +1,7 @@
 import { Drawer, Hidden, makeStyles} from "@material-ui/core";
 import React from "react";
 import {drawerWidth} from "../../../constants";
+import useSettings from "../../../hooks/useSettings";
 import DrawerContent from "../DrawerContent";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,19 +16,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-interface IMyDrawerProps {
-    toggle: () => void;
-    isOpen: boolean;
-}
-
-const MyDrawer = ({toggle, isOpen}: IMyDrawerProps) => {
+const MyDrawer = () => {
     const classes = useStyles();
+    const settings = useSettings();
+
+    const handleDrawerToggle = () => {
+        settings.setSetting("drawer", !settings.drawer);
+    };
 
     return (<nav className={classes.drawer} aria-label="mailbox folders">
         <Hidden lgUp={true} implementation="css">
             <Drawer variant="temporary"
-                    open={isOpen}
-                    onClose={toggle}
+                    open={settings.drawer}
+                    onClose={handleDrawerToggle}
                     classes={{ paper: classes.drawerPaper }}
                     ModalProps={{ keepMounted: true }}
             >

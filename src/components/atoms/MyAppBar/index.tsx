@@ -3,6 +3,7 @@ import {Menu} from '@material-ui/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {drawerWidth} from "../../../constants";
+import useSettings from "../../../hooks/useSettings/index";
 
 const useStyles = makeStyles(theme => ({
     appBar: {
@@ -19,14 +20,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-interface IAppBarProps {
-    title: string;
-    toggleDrawer: () => void;
-}
-
-const MyAppBar = ({ toggleDrawer, title}: IAppBarProps) => {
+const MyAppBar = () => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const settings = useSettings();
+
+    const handleDrawerToggle = () => {
+        settings.setSetting("drawer", !settings.drawer);
+    };
 
     return (<AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
@@ -34,16 +35,14 @@ const MyAppBar = ({ toggleDrawer, title}: IAppBarProps) => {
             color="inherit"
             aria-label={t("openDrawer")}
             edge="start"
-            onClick={toggleDrawer}
+            onClick={handleDrawerToggle}
             className={classes.menuButton}
         >
             <Menu />
         </IconButton>
-        <Typography variant="h6" noWrap={true}>{title}</Typography>
+        <Typography variant="h6" noWrap={true}>{t("title")}</Typography>
         </Toolbar>
     </AppBar>);
 };
 
-const propsAreEqual = (p: IAppBarProps, n: IAppBarProps) => p.title === n.title;
-
-export default React.memo(MyAppBar, propsAreEqual);
+export default React.memo(MyAppBar);
