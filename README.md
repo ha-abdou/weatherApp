@@ -6,7 +6,7 @@ Weather API [https://openweathermap.org/](https://openweathermap.org/).<br />
 
 ## App features
 * Mobile friendly
-* Can be added to home screen.
+* Can be added to home screen (chrome mobile).
 * Available offline.
 * Weather data update automatically every 10 minutes
 * 99 lighthouse score
