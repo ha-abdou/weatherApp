@@ -5,9 +5,12 @@ import API, {IAPICityWeatherResponse} from "../api";
 import CacheAPI from "../api/cache";
 import {DATA_LIFE_TIME, makeDummyCity, UPDATE_RATE} from "../constants";
 import updateTemp from "../util/updateTemp";
-import {ICityWeatherSummary} from "./useFavoriteCities";
 import useInterval from "./useInterval";
 import useSettings from "./useSettings";
+
+export interface ICityWeatherSummary extends IAPICityWeatherResponse {
+    loading: boolean;
+}
 
 const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
     const { tempConverter } = useSettings();

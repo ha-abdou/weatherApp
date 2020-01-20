@@ -1,4 +1,5 @@
-import {ICityWeatherSummary} from "./hooks/useFavoriteCities";
+import {ICityWeatherSummary} from "./hooks/useCityLiveWeatherSummary";
+
 
 export const drawerWidth = 240;
 

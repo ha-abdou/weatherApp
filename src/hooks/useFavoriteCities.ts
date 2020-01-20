@@ -1,11 +1,5 @@
-import { useEffect, useState } from "react";
-import {IAPICityWeatherResponse} from "../api";
+import { useState } from "react";
 import CacheAPI from "../api/cache";
-
-// todo move it
-export interface ICityWeatherSummary extends IAPICityWeatherResponse {
-    loading: boolean;
-}
 
 const useFavoriteCities = () => {
     const [cities, setCities] = useState<string[]>(CacheAPI.getFavoriteCities());
@@ -15,12 +9,15 @@ const useFavoriteCities = () => {
         if (index !== -1) {
             cities.splice(index, 1);
             setCities([ ...cities ]);
+            CacheAPI.setFavoriteCities(cities);
         }
     };
 
-    useEffect(() => CacheAPI.setFavoriteCities(cities), [cities]);
     return ({
-        addCity: (city: string) => setCities([city, ...cities]),
+        addCity: (city: string) => {
+            setCities([city, ...cities]);
+            CacheAPI.setFavoriteCities(cities);
+        },
         cities,
         removeCity,
     });

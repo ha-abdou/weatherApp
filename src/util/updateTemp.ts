@@ -1,4 +1,4 @@
-import {ICityWeatherSummary} from "../hooks/useFavoriteCities";
+import {ICityWeatherSummary} from "../hooks/useCityLiveWeatherSummary";
 
 function updateTemp (w: ICityWeatherSummary, tempConverter: (t: number) => number) {
     return ({

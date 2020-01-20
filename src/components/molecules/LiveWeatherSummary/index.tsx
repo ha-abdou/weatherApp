@@ -1,6 +1,5 @@
 import React, {useEffect, useMemo} from "react";
-import useCityLiveWeatherSummary from "../../../hooks/useCityLiveWeatherSummary";
-import {ICityWeatherSummary} from "../../../hooks/useFavoriteCities";
+import useCityLiveWeatherSummary, {ICityWeatherSummary} from "../../../hooks/useCityLiveWeatherSummary";
 import CityWeatherSummary from "../../atoms/CityWeatherSummary";
 
 interface ILiveWeatherSummaryProp {

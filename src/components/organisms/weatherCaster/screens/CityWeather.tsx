@@ -3,7 +3,8 @@ import {ArrowBackIos as ArrowBackIosIcon, DeleteForever as DeleteForeverIcon} fr
 import React, {useMemo, useState} from "react";
 import {PUBLIC_URL} from "../../../../constants";
 import history from "../../../../history";
-import useFavoriteCities, {ICityWeatherSummary} from "../../../../hooks/useFavoriteCities";
+import {ICityWeatherSummary} from "../../../../hooks/useCityLiveWeatherSummary";
+import useFavoriteCities from "../../../../hooks/useFavoriteCities";
 import LiveCityForecast from "../../../molecules/LiveCityForecast";
 import LiveWeatherSummary from "../../../molecules/LiveWeatherSummary";
 
