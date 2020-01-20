@@ -1,6 +1,6 @@
 import {ICityWeatherSummary} from "../hooks/useCityLiveWeatherSummary";
 
-function updateTemp (w: ICityWeatherSummary, tempConverter: (t: number) => number) {
+function updateTemp (w: ICityWeatherSummary, tempConverter: (t: number) => number): ICityWeatherSummary {
     return ({
         ...w,
         temp: tempConverter(w.temp),

@@ -14,7 +14,17 @@ const useCityForecast = (label: string) => {
     const { tempConverter, speedConverter } = useSettings();
     const { t } = useTranslation();
     const {enqueueSnackbar} = useSnackbar();
-
+    const update = () => {
+        API.getCityForecast(label)
+            .then((data) => {
+                setForecastData(data);
+                setDays(data.days.map((day) => day.date));
+                if (!selectedDay) {
+                    setSelectedDay(data.days[0].date);
+                }
+            })
+            .catch((err: IAPIError) => enqueueSnackbar(t(err.msg), { variant: "error" }))
+    };
     // update wen day are selected
     useEffect(() => {
         if (!forecastData || !selectedDay) {
@@ -35,24 +45,8 @@ const useCityForecast = (label: string) => {
             return true;
         })
     }, [selectedDay, tempConverter, speedConverter, forecastData]);
-    useInterval(() => {
-        API.getCityForecast(label)
-            .then((data) => {
-                setForecastData(data);
-                setDays(data.days.map((day) => day.date));
-            })
-            .catch((err: IAPIError) => enqueueSnackbar(t(err.msg), { variant: "error" }));
-    }, UPDATE_RATE);
-    useEffect(() => {
-        API.getCityForecast(label)
-            .then((data) => {
-                setForecastData(data);
-                setDays(data.days.map((day) => day.date));
-                setSelectedDay(data.days[0].date);
-            })
-            .catch((err: IAPIError) => enqueueSnackbar(t(err.msg), { variant: "error" }))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    useInterval(update, UPDATE_RATE);
+    useEffect(update, []);
     return ({
         days,
         forecast,

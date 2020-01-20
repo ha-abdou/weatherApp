@@ -52,7 +52,7 @@ const useCityLiveWeatherSummary = (label: string, onNotFound?: () => void) => {
                     // no internet use keep using cache
                     if ((err.msg === "city not found" ||
                         (err.msg === "networkError" && weather.id === 0))
-                        && onNotFound) {
+                        && onNotFound && mounted) {
                         onNotFound();
                     }
                 });

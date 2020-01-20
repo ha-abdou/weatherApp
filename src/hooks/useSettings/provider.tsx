@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import React, {useReducer, useState} from "react";
+import React, {useMemo, useReducer, useState} from "react";
 import i18n from "../../i18n";
 import getDefaultSettings from "../../util/getDefaultSetting";
 import settingsReducer, {SET_SETTINGS, ValueTypes} from "./reducer";
@@ -11,7 +11,7 @@ export const SettingsContext = React.createContext({
     setSetting: (key: string, value: ValueTypes) => { /**/ }
 });
 
-export const SettingsProvider: React.SFC = (props) => {
+export const SettingsProvider: React.FunctionComponent = (props) => {
     const [state, dispatch] = useReducer(settingsReducer, defaultSettings);
     const [setSetting] = useState(() => (key: string, value: ValueTypes) => {
         if (key === "language") {
@@ -27,7 +27,7 @@ export const SettingsProvider: React.SFC = (props) => {
         Cookies.set(key, value.toString());
     });
 
-    return (<SettingsContext.Provider value={{ ...state, setSetting }} >
+    return (useMemo(() => (<SettingsContext.Provider value={{ ...state, setSetting }} >
         {props.children}
-    </SettingsContext.Provider>);
+    </SettingsContext.Provider>), [props.children, state, setSetting]));
 };

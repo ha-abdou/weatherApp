@@ -1,4 +1,4 @@
 
-const kelvinToCelsius = (temp: number) => Math.floor(temp - 273.15);
+const kelvinToCelsius = (temp: number): number => Math.floor(temp - 273.15);
 
 export default kelvinToCelsius;
